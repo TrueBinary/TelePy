@@ -33,7 +33,7 @@ def error(update,context):
 	logger.warning(f"Update {update} caused error {context.error}")
 
 def main():
-	updater = Updater("", use_context=True)
+	updater = Updater("927710630:AAELvBu6JioptN-cZjI_P1F77zn5ugSEcQo", use_context=True)
 
 	dp = updater.dispatcher
 
