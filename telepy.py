@@ -33,7 +33,7 @@ def get(bot,update,args):
 
 
 def main():
-	updater = Updater("927710630:AAELvBu6JioptN-cZjI_P1F77zn5ugSEcQo")
+	updater = Updater("")
 
 	dp = updater.dispatcher
 
