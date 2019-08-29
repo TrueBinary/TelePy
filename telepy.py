@@ -30,7 +30,7 @@ def get(bot,update,args):
 		paths = response.download(arguments)
 		bot.send_message(chat_id, text= "wait for some seconds")
 		sleep(2)
-		os.system(f"./rename.sh")
+		os.system("./rename.sh")
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
 		os.remove("~/Área\\ de\\ Trabalho/Scripts/TelePy/downloads/*png*")
