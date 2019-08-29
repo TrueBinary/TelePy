@@ -3,6 +3,7 @@
 
 import logging
 import socket,os
+from time import * 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from google_images_download import google_images_download
 
@@ -21,15 +22,18 @@ def help(update):
 
 def get(bot,update,args):
 	chat_id= update.message.chat_id
-	bot.send_message(chat_id, text= "Use /get something to get some image")
-	for i in range(1):
-		name = str(i)
+	print(os.getcwd())
+	for i in range(0,99):
 		keyword = args[0]
-		dic = os.getcwd() + "/downloads/" + name
 		response= google_images_download.googleimagesdownload()
-		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"prefix":name,"format":"png"}
+		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
 		paths = response.download(arguments)
+		bot.send_message(chat_id, text= "wait for some seconds")
+		sleep(2)
+		os.system(f"./rename.sh")
+		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
+		os.remove("~/Área\\ de\\ Trabalho/Scripts/TelePy/downloads/*png*")
 
 
 def main():
