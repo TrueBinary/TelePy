@@ -29,7 +29,7 @@ def get(bot,update,args):
 		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
 		paths = response.download(arguments)
 		bot.send_message(chat_id, text= "wait for some seconds")
-		sleep(0.6)
+		sleep(0.5)
 		os.system("./rename.sh")
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
