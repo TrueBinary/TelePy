@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
-if mode == "dev":
+if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
 elif MODE == "proud":
