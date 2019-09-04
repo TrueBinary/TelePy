@@ -1,2 +1,2 @@
-web: gunicorn gymmie-test-master.wsgi --log-file
+web: gunicorn tele-py:app
 worker: python3 telepy.py
