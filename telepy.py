@@ -33,7 +33,7 @@ else:
 
 
 def help(update):
-	update.message.reply_text("help")
+	update.message.reply_text("Use /get to get some random images of google")
 
 
 def get(bot,update,args):
@@ -57,7 +57,6 @@ def main():
 
 	dp = updater.dispatcher
 
-	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
