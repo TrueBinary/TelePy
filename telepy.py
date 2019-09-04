@@ -32,11 +32,6 @@ else:
 	sys.exit(1)							  		
 
 
-
-
-def start(update):
-	update.message.reply_text("Hi Type something to search on the google and back a image of that")
-
 def help(update):
 	update.message.reply_text("help")
 
