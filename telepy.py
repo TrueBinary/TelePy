@@ -12,12 +12,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-mode = os.getenv("MODE")
+MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
 if mode == "dev":
 	def run(updater):
 		updater.start_polling()
-elif mode == "pround":
+elif mode == "proud":
 	def run(updater):
 		PORT = int(os.environ.get("PORT", "8843"))
 		HEROKU_APP_NAME = os.environ.get("tele-py")
