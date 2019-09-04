@@ -49,7 +49,7 @@ def get(bot,update,args):
 		os.system("./rename.sh")
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
-		os.remove(f"{dic}/downloads/*png*")
+		os.system("rm -rf /app/downloads/*png*")
 
 
 def main():
