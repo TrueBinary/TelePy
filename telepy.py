@@ -12,7 +12,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-MODE = os.getenv("MODE")
+mode = os.getenv("mode")
 TOKEN = os.getenv("TOKEN")
 if mode == "dev":
 	def run(updater):
