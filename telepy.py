@@ -17,7 +17,7 @@ TOKEN = os.getenv("TOKEN")
 if mode == "dev":
 	def run(updater):
 		updater.start_polling()
-elif mode == "proud":
+elif MODE == "proud":
 	def run(updater):
 		PORT = int(os.environ.get("PORT", "8843"))
 		HEROKU_APP_NAME = os.environ.get("tele-py")
