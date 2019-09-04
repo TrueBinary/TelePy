@@ -17,6 +17,7 @@ TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
+		updater.idle()
 elif MODE == "proud":
 	def run(updater):
 		PORT = int(os.environ.get("PORT", "8843"))
@@ -53,7 +54,7 @@ def get(bot,update,args):
 		os.system("./rename.sh")
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
-		os.remove("~/Área\\ de\\ Trabalho/Scripts/TelePy/downloads/*png*")
+		os.remove(f"{dic}/downloads/*png*")
 
 
 def main():
@@ -67,6 +68,7 @@ def main():
 	
 	updater.start_polling()
 	updater.idle()
+	run(updater)
 
 if __name__== "__main__":
 	main()	
