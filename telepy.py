@@ -40,7 +40,8 @@ def help(update):
 def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
-	for i in range(0,99):
+	while True
+	for i range(0,99)
 		keyword = args[0]
 		response= google_images_download.googleimagesdownload()
 		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
@@ -51,6 +52,7 @@ def get(bot,update,args):
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
 		os.remove(f"{dic}")
+		break
 
 
 def main():
