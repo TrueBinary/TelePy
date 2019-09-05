@@ -71,7 +71,7 @@ def get(bot,update,args):
 				done")
 			
 
-	exception(Exception as e):
+	except(Exception as e):
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 		sys.exit(1)
 
