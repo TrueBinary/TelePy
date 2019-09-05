@@ -49,14 +49,13 @@ def get(bot,update,args):
 		os.system("./rename.sh")
 		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 		bot.send_photo(chat_id, photo=open(dic,"rb"))
-		os.system("rm -rf /app/downloads/*png*")
+		os.remove("rm -rf /app/downloads/*png*")
 
 
 def main():
 	updater = Updater(TOKEN)
 
 	dp = updater.dispatcher
-
 	dp.add_handler(CommandHandler("help", help))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
