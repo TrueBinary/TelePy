@@ -31,7 +31,7 @@ else:
 	logger.error("No MODE specfied")
 	sys.exit(1)							  		
 
-def start(update,context):
+def start(update):
 	update.message.reply_text("i will help you with images")
 
 def help(update):
@@ -55,7 +55,7 @@ def get(bot,update,args):
 
 
 def main():
-	updater = Updater("{0}".format(TOKEN),use_context=True))
+	updater = Updater(TOKEN)
 
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
