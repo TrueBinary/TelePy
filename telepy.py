@@ -17,7 +17,6 @@ TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
-		updater.idle()
 elif MODE == "proud":
 	def run(updater):
 		PORT = int(os.environ.get("PORT", "8843"))
@@ -63,7 +62,6 @@ def main():
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
 	updater.start_polling()
-	updater.idle()
 	run(updater)
 
 if __name__== "__main__":
