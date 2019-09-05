@@ -41,7 +41,7 @@ def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	while True:
-		for i range(0,99):
+		for i in range(0,99):
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
