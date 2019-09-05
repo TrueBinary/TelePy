@@ -40,7 +40,7 @@ def help(update):
 def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
-	keyword = args[0][1]
+	keyword = args[0]
 	response= google_images_download.googleimagesdownload()
 	arguments = {"keywords":keyword,"limit":2,"no_directory":True,"format":"png"}
 	paths = response.download(arguments)
