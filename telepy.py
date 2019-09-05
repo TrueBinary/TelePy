@@ -55,7 +55,7 @@ def get(bot,update,args):
 
 
 def main():
-	updater = Updater(TOKEN)
+	updater = Updater(TOKEN,use_context=True))
 
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
