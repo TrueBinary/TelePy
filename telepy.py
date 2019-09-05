@@ -52,8 +52,8 @@ def get(bot,update,args):
 			dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 			bot.send_photo(chat_id, photo=open(dic,"rb"))
 			os.remove(f"{dic}")
-			break
-
+			sys.exit(0)	
+			
 
 def main():
 	updater = Updater(TOKEN)
