@@ -31,6 +31,8 @@ else:
 	logger.error("No MODE specfied")
 	sys.exit(1)							  		
 
+def help(update,context):
+	update.message.reply_text("i will help you with images")
 
 def help(update):
 	update.message.reply_text("Use /get to get some random images of google")
@@ -56,6 +58,7 @@ def main():
 	updater = Updater(TOKEN)
 
 	dp = updater.dispatcher
+	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
