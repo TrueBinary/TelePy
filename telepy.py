@@ -31,7 +31,7 @@ else:
 	logger.error("No MODE specfied")
 	sys.exit(1)							  		
 
-def help(update,context):
+def start(update,context):
 	update.message.reply_text("i will help you with images")
 
 def help(update):
