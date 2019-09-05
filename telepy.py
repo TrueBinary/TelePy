@@ -40,9 +40,9 @@ def help(update):
 def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
-	keyword = args[0]
+	keyword = args[0][1]
 	response= google_images_download.googleimagesdownload()
-	arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
+	arguments = {"keywords":keyword,"limit":2,"no_directory":True,"format":"png"}
 	paths = response.download(arguments)
 	bot.send_message(chat_id, text= "wait for some seconds")
 	sleep(0.5)
