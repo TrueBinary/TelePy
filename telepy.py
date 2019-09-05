@@ -33,6 +33,10 @@ else:
 def start(update):
 	update.message.reply_text("i will help you with images")
 
+def callback_30(bot,job):
+	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
+
+
 def help(update):
 	update.message.reply_text("Use /get to get some random images of google")
 
@@ -40,23 +44,30 @@ def help(update):
 def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
-	keyword = args[0]
-	response= google_images_download.googleimagesdownload()
-	arguments = {"keywords":keyword,"limit":2,"no_directory":True,"format":"png"}
-	paths = response.download(arguments)
-	bot.send_message(chat_id, text= "wait for some seconds")
-	sleep(0.5)
-	os.system("./rename.sh")
-	for i in range(0,99):
-		dic = os.getcwd() + "/downloads/" + str(i) +".png" 
-		bot.send_photo(chat_id, photo=open(dic,"rb"))
-		os.remove(f"{dic}")
-				
+	try:
+		sleep(0.6)
+		if args == args[0]:
+			keyword = args[0]
+			response= google_images_download.googleimagesdownload()
+			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
+			paths = response.download(arguments)
+			bot.send_message(chat_id, text= "wait for some seconds")
+			sleep(0.5)
+			os.system("./rename.sh")
+			for i in range(0,99):
+				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				os.remove(f"{dic}")
+		elif args == args[0][1]:
+			keyword = args[0][1]
+			response = google_images_download.googleimagesdownload()
+			arguments = {"keywords":keyword:limit:2,"no_directory":True,"format":"png"}
+			
 			
 
 def main():
 	updater = Updater(TOKEN)
-
+	j.run_once(callback,30)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
