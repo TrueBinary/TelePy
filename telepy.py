@@ -58,21 +58,10 @@ def get(bot,update,args):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-		elif args == args[0][1]:
-			keyword = args[0][1]
-			response = google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"limit":2,"no_directory":True,"format":"png"}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
-			os.system("cd /app/downloads/;\
-				for i in 0; do\
-				mv *png* $i.png\
-				done")
-			
 
 	except(Exception as e):
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
+		raise
 		sys.exit(1)
 
 def main():
