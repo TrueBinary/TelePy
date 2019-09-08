@@ -43,9 +43,10 @@ def help(update):
 
 def get(bot,update,args):
 	chat_id= update.message.chat_id
+	assert args == args ,bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 	print(os.getcwd())
 	try:
-		sleep(0.6)
+		sleep(0.6) 
 		keyword = args[0]
 		response= google_images_download.googleimagesdownload()
 		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
@@ -59,7 +60,6 @@ def get(bot,update,args):
 			os.remove(f"{dic}")
 
 	except Exception as e:
-		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
 		sys.exit(1)
 
