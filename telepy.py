@@ -67,7 +67,6 @@ def main():
 	updater = Updater(TOKEN)
 	j = updater.job_queue
 	dp = updater.dispatcher
-	j.run_once(get,30)
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
