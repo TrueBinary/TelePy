@@ -66,12 +66,11 @@ def get(bot,update,args):
 def main():
 	updater = Updater(TOKEN)
 	j = updater.job_queue
-	j.run_once(callback_30,30)
 	dp = updater.dispatcher
-	dp.add_handler(CommandHandler("anti_spam",callback_30))
+	j.run_once(get,30)
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
-	dp.add_handler(CommandHandler("get", get, callback_30, pass_args=True))
+	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
 	updater.start_polling()
 	run(updater)
