@@ -71,7 +71,7 @@ def main():
 	dp.add_handler(CommandHandler("anti_spam",callback_30))
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
-	dp.add_handler(CommandHandler("get", get(update,context), pass_args=True))
+	dp.add_handler(CommandHandler("get", get(updater,context), pass_args=True))
 	
 	updater.start_polling()
 	run(updater)
