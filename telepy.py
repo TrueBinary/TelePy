@@ -41,12 +41,12 @@ def help(update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(bot,update,args):
+def get(bot,update,context):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
 		sleep(0.6) 
-		keyword = args[0]
+		keyword = "".join(context.args)
 		response= google_images_download.googleimagesdownload()
 		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
 		paths = response.download(arguments)
@@ -64,7 +64,7 @@ def get(bot,update,args):
 		sys.exit(1)
 
 def main():
-	updater = Updater(TOKEN)
+	updater = Updater(TOKEN,use_context=True)
 	j = updater.job_queue
 	j.run_once(callback_30,30)
 	anti_spam = CommandHandler("anti_spam",callback_30)
