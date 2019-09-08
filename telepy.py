@@ -46,18 +46,17 @@ def get(bot,update,args):
 	print(os.getcwd())
 	try:
 		sleep(0.6)
-		if args == args[0]:
-			keyword = args[0]
-			response= google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
-			os.system("./rename.sh")
-			for i in range(0,99):
-				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
-				bot.send_photo(chat_id, photo=open(dic,"rb"))
-				os.remove(f"{dic}")
+		keyword = args[0]
+		response= google_images_download.googleimagesdownload()
+		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
+		paths = response.download(arguments)
+		bot.send_message(chat_id, text= "wait for some seconds")
+		sleep(0.5)
+		os.system("./rename.sh")
+		for i in range(0,99):
+			dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+			bot.send_photo(chat_id, photo=open(dic,"rb"))
+			os.remove(f"{dic}")
 
 	except Exception as e:
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
