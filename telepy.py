@@ -64,7 +64,7 @@ def get(bot,update,args):
 		sys.exit(1)
 
 def main():
-	updater = Updater(TOKEN)
+	updater = Updater(TOKEN,use_context=True)
 	j = updater.job_queue
 	j.run_once(callback_30,30)
 	dp = updater.dispatcher
