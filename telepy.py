@@ -67,7 +67,7 @@ def get(bot,update,args):
 def main():
 	updater = Updater(TOKEN)
 	j = updater.job_queue
-	j.run_once(callback,30)
+	j.run_once(callback_30,30)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
