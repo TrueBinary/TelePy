@@ -60,7 +60,7 @@ def get(bot,update,args):
 
 	except Exception as e:
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
-		raise
+		print(f"some error we have here dev look at here {e}")
 		sys.exit(1)
 
 def main():
