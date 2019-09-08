@@ -67,12 +67,11 @@ def main():
 	updater = Updater(TOKEN,use_context=True)
 	j = updater.job_queue
 	j.run_once(callback_30,30)
-	anti_spam = CommandHandler("anti_spam",callback_30)
-	updater.dispatcher.add_handler(anti_spam)
 	dp = updater.dispatcher
+	dp.add_handler(CommandHandler("anti_spam",callback_30))
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
-	dp.add_handler(CommandHandler("get", get, pass_args=True))
+	dp.add_handler(CommandHandler("get", get(bot,update,context), pass_args=True))
 	
 	updater.start_polling()
 	run(updater)
