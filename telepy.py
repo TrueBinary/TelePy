@@ -59,7 +59,7 @@ def get(bot,update,args):
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
-	except(Exception as e):
+	except Exception as e:
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 		raise
 		sys.exit(1)
