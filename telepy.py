@@ -33,7 +33,7 @@ else:
 def start(update):
 	update.message.reply_text("i will help you with images")
 
-def callback_30(bot,job):
+def callback_30(bot,job,update):
 	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
 
 
