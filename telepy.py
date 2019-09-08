@@ -41,7 +41,7 @@ def help(update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(bot,update,context):
+def get(update,context):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
@@ -55,11 +55,11 @@ def get(bot,update,context):
 		os.system("./rename.sh")
 		for i in range(0,99):
 			dic = os.getcwd() + "/downloads/" + str(i) +".png" 
-			bot.send_photo(chat_id, photo=open(dic,"rb"))
+			context.bot.send_photo(chat_id, photo=open(dic,"rb"))
 			os.remove(f"{dic}")
 
 	except IndexError as e:
-		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
+		context.bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
 		sys.exit(1)
 
@@ -71,7 +71,7 @@ def main():
 	dp.add_handler(CommandHandler("anti_spam",callback_30))
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
-	dp.add_handler(CommandHandler("get", get(bot,update,context), pass_args=True))
+	dp.add_handler(CommandHandler("get", get(update,context), pass_args=True))
 	
 	updater.start_polling()
 	run(updater)
