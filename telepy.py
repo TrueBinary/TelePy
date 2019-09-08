@@ -43,7 +43,6 @@ def help(update):
 
 def get(bot,update,args):
 	chat_id= update.message.chat_id
-	assert args == args ,bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 	print(os.getcwd())
 	try:
 		sleep(0.6) 
