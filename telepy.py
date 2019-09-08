@@ -64,9 +64,11 @@ def get(bot,update,args):
 		sys.exit(1)
 
 def main():
-	updater = Updater(TOKEN,use_context=True)
+	updater = Updater(TOKEN)
 	j = updater.job_queue
 	j.run_once(callback_30,30)
+	anti_spam = CommandHandler("anti_spam",callback_30)
+	updater.dispatcher.add_handler(anti_spam)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
