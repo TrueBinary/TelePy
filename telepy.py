@@ -41,12 +41,12 @@ def help(update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(update,context):
+def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
 		sleep(0.6) 
-		keyword = "".join(context.args)
+		keyword = args[0]
 		response= google_images_download.googleimagesdownload()
 		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
 		paths = response.download(arguments)
@@ -55,23 +55,23 @@ def get(update,context):
 		os.system("./rename.sh")
 		for i in range(0,99):
 			dic = os.getcwd() + "/downloads/" + str(i) +".png" 
-			context.bot.send_photo(chat_id, photo=open(dic,"rb"))
+			bot.send_photo(chat_id, photo=open(dic,"rb"))
 			os.remove(f"{dic}")
 
 	except IndexError as e:
-		context.bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
+		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
 		sys.exit(1)
 
 def main():
-	updater = Updater(TOKEN,use_context=True)
+	updater = Updater(TOKEN)
 	j = updater.job_queue
 	j.run_once(callback_30,30)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("anti_spam",callback_30))
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
-	dp.add_handler(CommandHandler("get", get(updater,context), pass_args=True))
+	dp.add_handler(CommandHandler("get", get, callback_30, pass_args=True))
 	
 	updater.start_polling()
 	run(updater)
