@@ -45,7 +45,7 @@ def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
-		print(args[0][1])
+		print(args[0],args[1])
 		"""
 		sleep(0.6) 
 		keyword = args[0]
