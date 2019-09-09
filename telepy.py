@@ -45,12 +45,28 @@ def get(bot,update,args):
 	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
+		print(args[0][1])
+		"""
 		sleep(0.6) 
-		keyword = args[1]
+		keyword = args[0]
 
 		sufkey = args[2]
 		prekey = args[0]
-		if args == args[0][1]:
+		if args == args[0]:
+			keyword = args[0]
+			response= google_images_download.googleimagesdownload()
+			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
+			paths = response.download(arguments)
+			bot.send_message(chat_id, text= "wait for some seconds")
+			sleep(0.5)
+			os.system("./rename.sh")
+			for i in range(0,99):
+				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				os.remove(f"{dic}")
+
+
+		elif args == args[0][1]:
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
@@ -72,19 +88,7 @@ def get(bot,update,args):
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
-
-		elif args == args[0]:
-
-			response= google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
-			os.system("./rename.sh")
-			for i in range(0,99):
-				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
-				bot.send_photo(chat_id, photo=open(dic,"rb"))
-				os.remove(f"{dic}")
+				"""
 
 	except IndexError as e:
 		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
