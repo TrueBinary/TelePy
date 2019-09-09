@@ -46,10 +46,11 @@ def get(bot,update,args):
 	print(os.getcwd())
 	try:
 		sleep(0.6) 
-		keyword = args[0]
-		sufkey = args[1]
+		keyword = args[1]
+		sufkey = args[2]
+		prekey = args[0]
 		response= google_images_download.googleimagesdownload()
-		arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
+		arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 		paths = response.download(arguments)
 		bot.send_message(chat_id, text= "wait for some seconds")
 		sleep(0.5)
