@@ -31,14 +31,14 @@ else:
 	sys.exit(1)							  		
 
 def start(update):
-	bot.send_message(chat_id=update.message.chat_id,"i will help you with images")
+	update.message.reply_text("i will help you with images")
 
 def callback_30(bot,job,update):
 	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
 
 
-def help(bot,update):
-	bot.send_message(chat_id=update.message.chat_id,"Use /get to get some random images of google")
+def help(update):
+	update.message.reply_text("Use /get to get some random images of google")
 
 
 def get(bot,update,args):
