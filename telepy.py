@@ -47,8 +47,9 @@ def get(bot,update,args):
 	try:
 		sleep(0.6) 
 		keyword = args[0]
+		sufkey = args[1]
 		response= google_images_download.googleimagesdownload()
-		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
+		arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 		paths = response.download(arguments)
 		bot.send_message(chat_id, text= "wait for some seconds")
 		sleep(0.5)
