@@ -31,14 +31,14 @@ else:
 	sys.exit(1)							  		
 
 def start(update):
-	update.message.reply_text("i will help you with images")
+	bot.send_message(chat_id=update.message.chat_id,"i will help you with images")
 
 def callback_30(bot,job,update):
 	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
 
 
-def help(update):
-	update.message.reply_text("Use /get to get some random images of google")
+def help(bot,update):
+	bot.send_message(chat_id=update.message.chat_id,"Use /get to get some random images of google")
 
 
 def get(bot,update,args):
@@ -48,7 +48,7 @@ def get(bot,update,args):
 		sleep(0.6) 
 		keyword = args[0]
 		response= google_images_download.googleimagesdownload()
-		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png"}
+		arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 		paths = response.download(arguments)
 		bot.send_message(chat_id, text= "wait for some seconds")
 		sleep(0.5)
@@ -65,7 +65,6 @@ def get(bot,update,args):
 
 def main():
 	updater = Updater(TOKEN)
-	j = updater.job_queue
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", help))
