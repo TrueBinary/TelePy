@@ -30,14 +30,14 @@ else:
 	logger.error("No MODE specfied")
 	sys.exit(1)							  		
 
-def start(update):
+def start(bot,update):
 	update.message.reply_text("i will help you with images")
 
 def callback_30(bot,job,update):
 	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
 
 
-def help(update):
+def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
@@ -67,7 +67,7 @@ def main():
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
-	dp.add_handler(CommandHandler("help", help))
+	dp.add_handler(CommandHandler("help", ajuda))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
 	updater.start_polling()
