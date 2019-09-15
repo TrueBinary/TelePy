@@ -11,7 +11,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 					level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-
+chat_id = chat_id
+msg_id = update.message.message_id
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
@@ -31,10 +32,12 @@ else:
 	sys.exit(1)							  		
 
 def start(bot,update):
-	update.message.reply_text("i will help you with images")
+	botwelcome = """Welcome to the pybobot i'll send to you some random images which you want,
+	why do you not try send /get some shit ?"""
+	bot.send_message(chat_id=chat_id, text=botwelcome, reply_text=message_id)
 
 def callback_30(bot,job,update):
-	bot.send_message(chat_id=update.message.chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
+	bot.send_message(chat_id=chat_id,text="DO YOU CAN JUST ONLY SEND A MESSAGE EACH 30 SECUNDS BITCH!! STOP SMAPING")
 
 
 def ajuda(bot,update):
@@ -42,7 +45,6 @@ def ajuda(bot,update):
 
 
 def get(bot,update,args):
-	chat_id= update.message.chat_id
 	print(os.getcwd())
 	try:
 		
@@ -59,7 +61,6 @@ def get(bot,update,args):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-
 
 		elif len(args) == 2:
 			keyword = args[0]
@@ -90,12 +91,13 @@ def get(bot,update,args):
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 
 	except IndexError as e:
-		bot.send_message(chat_id=update.message.chat_id,text="Error none arguments")
+		bot.send_message(chat_id=chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
 		
 
 def main():
-	updater = Updater(TOKEN)
+	q = mq.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
+	updater = Updater(TOKEN,mqueue=q)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
