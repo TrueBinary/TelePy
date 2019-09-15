@@ -65,6 +65,7 @@ def ajuda(bot,update):
 
 def get(bot,update,args):
 	print(os.getcwd())
+	chat_id = update.message.chat_id
 	try:
 		
 		sleep(0.6) 
