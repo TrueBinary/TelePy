@@ -97,9 +97,9 @@ def get(bot,update,args):
 		
 
 def main():
-	q = mq.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
-	updater = Updater(TOKEN,mqueue=q)
 	dp = updater.dispatcher
+	updater = Updater(TOKEN,mqueue=q)
+	q = dp.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
