@@ -26,7 +26,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Delay
 from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-					level=logging.INFO)
+					level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
