@@ -97,7 +97,6 @@ def get(bot,update,args):
 		
 
 def main():
-	q = mq.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
