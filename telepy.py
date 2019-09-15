@@ -11,7 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 					level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-chat_id = chat_id
+chat_id = update.message.chat_id
 msg_id = update.message.message_id
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
