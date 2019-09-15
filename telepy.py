@@ -61,7 +61,7 @@ def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(bot,update,args,job_queue)):
+def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
