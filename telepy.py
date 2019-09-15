@@ -11,8 +11,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 					level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-chat_id = update.message.chat_id
-msg_id = update.message.message_id
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
@@ -32,6 +30,8 @@ else:
 	sys.exit(1)							  		
 
 def start(bot,update):
+	chat_id = update.message.chat_id
+	msg_id = update.message.message_id
 	global chat_id,msg_id
 	botwelcome = """Welcome to the pybobot i'll send to you some random images which you want,
 	why do you not try send /get some shit ?"""
