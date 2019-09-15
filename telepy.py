@@ -1,7 +1,7 @@
 #lib importantes
 #-*- coding: utf-8 -*-
 
-#Copyright (C) 2008 MrTrue <gui15787@gmail.com>
+#Copyright (C) 2008 MrTrue <gui19787@gmail.com>
 #     This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -73,13 +73,13 @@ def get(bot,update,args):
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
+			sleep(0.9)
 			os.system("./rename.sh")
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-
+		sleep(0.6)
 		elif len(args) == 2:
 			keyword = args[0]
 			sufkey = args[1]
@@ -87,7 +87,7 @@ def get(bot,update,args):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
+			sleep(0.9)
 			os.system("./rename.sh")
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
@@ -102,7 +102,7 @@ def get(bot,update,args):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
+			sleep(0.9)
 			os.system("./rename.sh")
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
@@ -118,7 +118,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
-	sleep(0.8)
+	sleep(1.0)
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
 	updater.start_polling()
