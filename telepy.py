@@ -76,9 +76,9 @@ def get(bot,update,args):
 				os.remove(f"{dic}")
 
 		else:
-			sufkey = args[0]
+			prekey = args[0]
 			keyword = args[1]
-			prekey = args[2]
+			sufkey = args[2]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
