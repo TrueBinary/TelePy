@@ -50,8 +50,7 @@ else:
 def start(bot,update):
 	chat_id = update.message.chat_id
 	msg_id = update.message.message_id
-	botwelcome = """Welcome to the pybobot i'll send to you some random images which you want,
-	why do you not try send /get some shit ?"""
+	botwelcome = """Welcome to the pybobot i'll send to you some random images which you want,why do you not try send /get some shit ?"""
 	bot.send_message(chat_id=chat_id, text=botwelcome, reply_text=msg_id)
 
 def callback_30(bot,job,update):
