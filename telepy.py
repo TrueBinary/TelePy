@@ -66,7 +66,7 @@ def get(bot,update,args):
 	chat_id = update.message.chat_id
 	try:
 		
-		sleep(0.6) 
+		sleep(1.0) 
 		if len(args) == 1:
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
@@ -79,7 +79,7 @@ def get(bot,update,args):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-		sleep(0.6)
+	
 		elif len(args) == 2:
 			keyword = args[0]
 			sufkey = args[1]
