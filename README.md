@@ -13,7 +13,7 @@ pip install -r requirements.txt
 [@Mrtrue](https://twitter.com/TrueBinary) - gui15787@gmail.com
 distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software Foundation, Inc.](fsf.org) Read the original GPL v3.
 ## Feature
-- [] add new features like reverse search of image
+- [ ] add new features like reverse search of image
 
 ### Contributing
 1. Fork it (<https://github.com/TrueBinaru/Telepy/fork>)
