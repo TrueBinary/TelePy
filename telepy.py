@@ -120,7 +120,7 @@ def main():
 	dp.add_handler(CommandHandler("help", ajuda))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
-	job_minute = j.run_once(, interval=60, first=0)
+	job_minute = j.run_once(get, interval=60, first=0)
 	
 	updater.start_polling()
 	run(updater)
