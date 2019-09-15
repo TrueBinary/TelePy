@@ -61,7 +61,7 @@ def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(bot,update,args):
+def get(bot,update,args,job):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
@@ -118,8 +118,8 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
-	sleep(1.0)
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
+	j = dp.job_queue.run_once(get, 20)
 	
 	updater.start_polling()
 	run(updater)
