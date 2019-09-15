@@ -61,8 +61,7 @@ def get(bot,update,args):
 					dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 					os.remove(f"{dic}")
-
-			print(x)
+					
 			elif x == args[1]:
 				keyword = args[0]
 				sufkey = args[1]
@@ -76,8 +75,7 @@ def get(bot,update,args):
 					dic = os.getcwd() + "/downloads/" + str(i) +".png" 
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 					os.remove(f"{dic}")
-
-			print(x)		
+		
 			elif x == args[2]:
 				keyword = args[0]
 				sufkey = args[1]
