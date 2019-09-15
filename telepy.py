@@ -5,6 +5,7 @@ import logging
 import socket,os,sys
 from time import * 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import messagequeue as mq
 from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -97,9 +98,9 @@ def get(bot,update,args):
 		
 
 def main():
-	dp = updater.dispatcher
+	q = mq.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
 	updater = Updater(TOKEN,mqueue=q)
-	q = dp.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
+	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
