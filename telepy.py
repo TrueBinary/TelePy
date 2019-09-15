@@ -118,6 +118,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
 	dp.add_handler(CommandHandler("help", ajuda))
+	sleep(0.8)
 	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	
 	updater.start_polling()
