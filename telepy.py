@@ -17,6 +17,9 @@ MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
 	def run(updater):
+		chat_id = update.message.chat_id
+		msg_id = update.message.message_id
+		global chat_id,msg_id
 		updater.start_polling()
 elif MODE == "proud":
 	def run(updater):
