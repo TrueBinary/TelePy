@@ -16,7 +16,7 @@ distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software
 - [ ] add new features like reverse search of image
 
 ### Contributing
-1. Fork it (<https://github.com/TrueBinaru/Telepy/fork>)
+1. Fork it (<https://github.com/TrueBinary/Telepy/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
