@@ -47,7 +47,7 @@ def get(bot,update,args):
 	try:
 		
 		sleep(0.6) 
-		if len(args) == 0:
+		if len(args) == 1:
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
@@ -61,7 +61,7 @@ def get(bot,update,args):
 				os.remove(f"{dic}")
 
 
-		elif len(args) == 1:
+		elif len(args) == 2:
 			keyword = args[0]
 			sufkey = args[1]
 			response= google_images_download.googleimagesdownload()
