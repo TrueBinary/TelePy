@@ -47,11 +47,8 @@ def get(bot,update,args):
 	try:
 		
 		sleep(0.6) 
-		keyword = args[0]
-
-		sufkey = args[2]
-		prekey = args[1]
-		if args[0] == keyword:
+		for x in range(len(args)):
+			if x == 0:
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
@@ -65,7 +62,10 @@ def get(bot,update,args):
 				os.remove(f"{dic}")
 
 
-		elif args[2] == sufkey:
+		elif x == 1:
+			keyword = args[0]
+			sufkey = args[1]
+		
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
@@ -77,7 +77,10 @@ def get(bot,update,args):
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
-		elif args[1] == prekey:
+		elif x == 2:
+			keyword = args[0]
+			sufkey = args[1]
+			prekey = args[2]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
