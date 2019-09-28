@@ -65,15 +65,13 @@ def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
-		
-		sleep(1.0) 
 		if len(args) == 1:
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.9)
+			sleep(0.1)
 			os.system("./rename.sh")
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
@@ -87,7 +85,7 @@ def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.9)
+			sleep(0.1)
 			os.system("./rename.sh")
 			for i in range(0,99):
 				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
@@ -102,11 +100,12 @@ def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.9)
-			os.system("./rename.sh")
-			for i in range(0,99):
-				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+			sleep(0.1)
+			for i in os.listdir("/app/downloads/"):
+				nome = str(i)
+				dic = os.getcwd() + "/downloads/" + nome 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				os.remove(f"{dic}")
 
 	except IndexError as e:
 		bot.send_message(chat_id=chat_id,text="Error none arguments")
@@ -120,7 +119,7 @@ def main():
 	dp.add_handler(CommandHandler("help", ajuda))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
-	job_minute = j.run_once(get,20)
+	job_minute = j.run_once(get,25)
 	
 	updater.start_polling()
 	run(updater)
@@ -128,3 +127,4 @@ def main():
 if __name__== "__main__":
 	main()	
 
+"""/TODO add new feature google reverse image """
