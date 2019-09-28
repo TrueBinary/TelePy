@@ -72,12 +72,12 @@ def get(bot,update,args,job_queue):
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			sleep(0.1)
-			os.system("./rename.sh")
-			for i in range(0,99):
-				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+			for i in os.listdir("/app/downloads/"):
+				nome = str(i)
+				dic = os.getcwd() + "/downloads/" + nome 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-	
+				
 		elif len(args) == 2:
 			keyword = args[0]
 			sufkey = args[1]
@@ -86,12 +86,11 @@ def get(bot,update,args,job_queue):
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			sleep(0.1)
-			os.system("./rename.sh")
-			for i in range(0,99):
-				dic = os.getcwd() + "/downloads/" + str(i) +".png" 
+			for i in os.listdir("/app/downloads/"):
+				nome = str(i)
+				dic = os.getcwd() + "/downloads/" + nome 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-
 		else:
 			prekey = args[0]
 			keyword = args[1]
