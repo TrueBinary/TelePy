@@ -71,13 +71,13 @@ def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.1)
+			sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
 				bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
-				
+
 		elif len(args) == 2:
 			keyword = args[0]
 			sufkey = args[1]
@@ -85,7 +85,7 @@ def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.1)
+			sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -99,7 +99,7 @@ def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.1)
+			sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
