@@ -20,9 +20,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import socket,os,sys,asyncio 
+import socket,os,sys
 from time import * 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue,run_async
 from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -60,7 +60,7 @@ def callback_30(bot,job,update):
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
-@asyncio.coroutine
+@run_async
 async def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
