@@ -20,7 +20,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import socket,os,sys
+import socket,os,sys,asyncio 
 from time import * 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
 from google_images_download import google_images_download
@@ -61,7 +61,7 @@ def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def get(bot,update,args,job_queue):
+async def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
@@ -69,9 +69,9 @@ def get(bot,update,args,job_queue):
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			paths = response.download(arguments)
+			await asyncio.wait([paths = response.download(arguments)], 1)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.7)
+			await asyncio.sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -83,7 +83,7 @@ def get(bot,update,args,job_queue):
 			sufkey = args[1]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			paths = response.download(arguments)
+			await asyncio.wait([paths = response.download(arguments)], 1)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
@@ -97,9 +97,9 @@ def get(bot,update,args,job_queue):
 			sufkey = args[2]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			paths = response.download(arguments)
+			await asyncio.wait([paths = response.download(arguments)], 1)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.7)
+			await asyncio.sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -124,6 +124,7 @@ def main():
 	run(updater)
 
 if __name__== "__main__":
-	main()	
+	loop = asyncio.get_event_loop()
+	loop.run(main())
 
 """/TODO add new feature google reverse image """
