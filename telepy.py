@@ -35,6 +35,7 @@ TOKEN = os.getenv("TOKEN")
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
+		updater.idle()
 elif MODE == "proud":
 	def run(updater):
 		PORT = int(os.environ.get("PORT", "8843"))
