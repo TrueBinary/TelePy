@@ -69,7 +69,7 @@ async def get(bot,update,args,job_queue):
 			keyword = args[0]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			await asyncio.wait([paths = response.download(arguments)], 1)
+			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			await asyncio.sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
@@ -83,7 +83,7 @@ async def get(bot,update,args,job_queue):
 			sufkey = args[1]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			await asyncio.wait([paths = response.download(arguments)], 1)
+			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
@@ -97,7 +97,7 @@ async def get(bot,update,args,job_queue):
 			sufkey = args[2]
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
-			await asyncio.wait([paths = response.download(arguments)], 1)
+			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
 			await asyncio.sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
