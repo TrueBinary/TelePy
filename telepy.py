@@ -22,7 +22,8 @@
 import logging
 import socket,os,sys
 from time import * 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue,run_async
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
+from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -61,7 +62,7 @@ def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 @run_async
-async def get(bot,update,args,job_queue):
+def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
@@ -71,7 +72,7 @@ async def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			await asyncio.sleep(0.3)
+			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -85,7 +86,7 @@ async def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			await asyncio.sleep(0.3)
+			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -99,7 +100,7 @@ async def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			await asyncio.sleep(0.3)
+			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
@@ -111,7 +112,7 @@ async def get(bot,update,args,job_queue):
 		print(f"some error we have here dev look at here {e}")
 		
 
-async def main():
+def main():
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
