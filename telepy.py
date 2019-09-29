@@ -85,7 +85,7 @@ async def get(bot,update,args,job_queue):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True,"format":"png","print_urls":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.7)
+			await asyncio.sleep(0.7)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome 
