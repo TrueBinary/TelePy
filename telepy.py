@@ -111,7 +111,7 @@ async def get(bot,update,args,job_queue):
 		print(f"some error we have here dev look at here {e}")
 		
 
- def main():
+async def main():
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
@@ -124,7 +124,6 @@ async def get(bot,update,args,job_queue):
 	run(updater)
 
 if __name__== "__main__":
-	loop = asyncio.get_event_loop()
-	loop.run_until_complete(main())
+	asyncio.run(main())
 
 """/TODO add new feature google reverse image """
