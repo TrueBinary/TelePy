@@ -60,7 +60,7 @@ def callback_30(bot,job,update):
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
-
+@asyncio.coroutine
 async def get(bot,update,args,job_queue):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
@@ -124,6 +124,8 @@ async def main():
 	run(updater)
 
 if __name__== "__main__":
-	asyncio.get_event_loop().run_until_complete(main())
-
+	loop = asyncio.get_event_loop()
+	tasks = [loop.create_task(main())]
+	wait_tasks = asyncio.wait(tasks)
+	loop.run_until_complete(wait_tasks)
 """/TODO add new feature google reverse image """
