@@ -111,7 +111,7 @@ async def get(bot,update,args,job_queue):
 		print(f"some error we have here dev look at here {e}")
 		
 
-async def main():
+ def main():
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start",start))
