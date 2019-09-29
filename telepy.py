@@ -126,8 +126,5 @@ def main():
 	run(updater)
 
 if __name__== "__main__":
-	loop = asyncio.get_event_loop()
-	tasks = [loop.create_task(main())]
-	wait_tasks = asyncio.wait(tasks)
-	loop.run_until_complete(wait_tasks)
+	main()
 """/TODO add new feature google reverse image """
