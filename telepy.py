@@ -58,6 +58,15 @@ def start(bot,update):
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
+def info(bot,upadate):
+	info = """
+	<b>Hi i'm bot of MrTrue,i was created to help you find some imagens on the google</b>
+	<b>Developer: </b> <a href="https://t.me/Mr_True">MrTrue</a>
+	<b>Code: </b> <a href="https://github.com/TrueBinary/TelePy">Github</a>
+	"""
+
+	bot.send_message(parse_mode="HTML",chat_id=update.message_id, text=info, reply_to_message_id=update.message_id)
+
 @run_async
 def get(bot,update,args,job_queue):
 	print(os.getcwd())
@@ -112,8 +121,9 @@ def get(bot,update,args,job_queue):
 def main():
 	updater = Updater(TOKEN)
 	dp = updater.dispatcher
-	dp.add_handler(CommandHandler("start",start))
+	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help", ajuda))
+	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
 	job_minute = j.run_once(get,25)
