@@ -58,14 +58,14 @@ def start(bot,update):
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
-def info(bot,upadate):
-	info = """
-	<b>Hi i'm bot of MrTrue,i was created to help you find some imagens on the google</b>
-	<b>Developer: </b> <a href="https://t.me/Mr_True">MrTrue</a>
-	<b>Code: </b> <a href="https://github.com/TrueBinary/TelePy">Github</a>
+def info(bot,update):
+	info_text = """
+<b>Hi i'm bot of MrTrue,i was created to help you find some imagens on the google</b>
+<b>Developer: </b> <a href="https://t.me/Mr_True">MrTrue</a>
+<b>Code: </b> <a href="https://github.com/TrueBinary/TelePy">Github</a>
 	"""
 
-	bot.send_message(parse_mode="HTML",chat_id=update.message_id, text=info, reply_to_message_id=update.message_id)
+	bot.send_message(parse_mode="HTML",chat_id=update.message.chat_id, text=info_text, reply_text=update.message.chat)
 
 @run_async
 def get(bot,update,args,job_queue):
@@ -80,9 +80,12 @@ def get(bot,update,args,job_queue):
 			bot.send_message(chat_id, text= "wait for some seconds")
 			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
-				nome = str(i)
-				dic = os.getcwd() + "/downloads/" + nome 
-				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				nome = str(i)				
+				dic = os.getcwd() + "/downloads/" + nome
+				if nome.endswith("gif"):
+					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
+				else:	
+					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
 		elif len(args) == 2:
@@ -95,9 +98,13 @@ def get(bot,update,args,job_queue):
 			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
-				dic = os.getcwd() + "/downloads/" + nome 
-				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				dic = os.getcwd() + "/downloads/" + nome
+				if nome.endswith("gif"):
+					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
+				else:	
+					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
+
 		else:
 			prekey = args[0]
 			keyword = args[1]
@@ -109,8 +116,12 @@ def get(bot,update,args,job_queue):
 			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
-				dic = os.getcwd() + "/downloads/" + nome 
-				bot.send_photo(chat_id, photo=open(dic,"rb"))
+				dic = os.getcwd() + "/downloads/" + nome
+				if nome.endswith("gif"):
+					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
+					
+				else:	
+					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
 	except IndexError as e:
