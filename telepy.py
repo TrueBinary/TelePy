@@ -19,7 +19,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 try:
-   import queue
+   import queue as Queue
 except ImportError:
    import Queue as Queue
 
