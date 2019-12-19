@@ -150,7 +150,7 @@ class Result(threading.Thread):
 					except Exception as e:
 						print(f"Error {e}")
 
-				time.sleep(1)				
+				sleep(1)				
 
 
 def info(bot,update):
