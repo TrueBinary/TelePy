@@ -101,7 +101,11 @@ def crawler(bot,update):
 	send_thread.start()
 	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"		
 
-	url = ["https://www.reddit.com/r/":"FreeGamesOnSteam/"]
+	url = []
+	for sr in subreddit.split(";"):
+		url.append("https://www.reddit.com/r/" + sr)
+		print(url)
+		print(sr)	
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = RedditSpider
