@@ -22,7 +22,7 @@ import configparser
 import scrapy
 from scrapy.crawler import CrawlerProcess
 import json
-import time, threading,Queu
+import time, threading,Queue
 import logging
 import socket,os,sys
 from time import * 
