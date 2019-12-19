@@ -99,12 +99,13 @@ def crawler(bot,update):
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()
+	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"		
 
-	url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
+	url = ["https://www.reddit.com/r/";"FreeGamesOnSteam/"]
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
-	spider = Reddit
-	spider.start_url = url'
+	spider = RedditSpider
+	spider.start_urls = urls
 	process.crawl(spider)
 	process.start()
 
