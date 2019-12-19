@@ -103,7 +103,7 @@ def crawler(bot,update):
 
 	url = []
 	for sr in subreddit.split(";"):
-		urls.append("https://www.reddit.com/r/" + sr)
+		url.append("https://www.reddit.com/r/" + sr)
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = RedditSpider
