@@ -79,6 +79,8 @@ def crawler(bot,update):
 
 	class Reddit(scrapy.Spider):
 		name = "reddit"
+		allowed_domains = ['reddit.com/r/FreeGamesOnSteam']
+		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/top.json?sort=top"]
 
 		def parse(self,response):
 			for thing in response.css("div.thing"):
@@ -100,13 +102,7 @@ def crawler(bot,update):
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()
-	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/top.json?sort=top"		
-
-	url = []
-	for sr in subreddit.split(";"):
-		url.append("" + sr)
-		print(url)
-		print(sr)	
+		
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = Reddit
