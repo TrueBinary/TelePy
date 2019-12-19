@@ -18,11 +18,7 @@
 
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-try:
-   import queue as Queue
-except ImportError:
-   import Queue as Queue
-
+import queue as Queue
 from time import sleep
 import configparser
 import scrapy
@@ -89,20 +85,16 @@ def crawler(bot,update,chat_id):
 		}
 
 		def parse(self,response):
-			for thing in response.css("div.thing"):
-				upvotes = int(thing.css("::attr(data-score)").extratct_first())
-				if upvotes > 1:
-					queue.put(
-						json.dumps({
-							"subreddit": response.request.url.rsplit("/", 2)[1].encode("utf8"),
-							"title": str(thing.css("p.title a.title::text").extratct_first().encode("utf8")),
-							"upvotes":upvotes,
-							"thread_link":response.urljoin(
-								thing.css("p.title a.title::attr(href)").extratct_first().encode("utf8")),
-							}))
-			response.css("div.quote")
-			for href in response.css("span.next-button a::attr(href)"):
-				yield response.follow(href,self.parse)
+			jobs=response.xpath('//div[@class="_2FCtq-QzlfuN-SwVMUZMM3 _2wImphGg_1LcEF5MiErvRx t3_ecsj71"]/div')
+			for job in jobs:
+				title =job.xpath('div//h2/text()').extract_first()
+				link=job.xpath('div//a[h2]/@href').extract_first()
+				username=job.xpath('div//a[starts-with(@href, "/user/")]/text()').extract_first()
+				user_url=job.xpath('div//a[starts-with(@href, "/user/")]/text()').extract_first()
+				score=job.xpath('div//button[@data-click-id="upvote"]/following-sibling::div/text()').extract_first()
+				time=job.xpath('div//a[@data-click-id="timestamp"]/text()').extract_first()
+				yield{'title':title,'link':link,'username':username,'user_url':user_url,'score':score,'time':time}
+
 
 	queue = Queue.Queue()
 	chat_id = "@FreeeGamesonSteam"
