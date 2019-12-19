@@ -78,29 +78,36 @@ def crawler(bot,update,chat_id):
 
 	class Reddit(scrapy.Spider):
 		name = "Reddit"
-		allowed_domains = ['reddit.com/r/FreeGamesOnSteam']
+		allowed_domains = ['reddit.com/']
 		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
 		custom_settings = {
 		'FEED_URI': './output.json'
 		}
 
 		def parse(self,response):
-			jobs=response.xpath('//div[@class="_2FCtq-QzlfuN-SwVMUZMM3 _2wImphGg_1LcEF5MiErvRx t3_ecsj71"]/div')
-			for job in jobs:
-				title =job.xpath('div//h2/text()').extract_first()
-				link=job.xpath('div//a[h2]/@href').extract_first()
-				username=job.xpath('div//a[starts-with(@href, "/user/")]/text()').extract_first()
-				user_url=job.xpath('div//a[starts-with(@href, "/user/")]/text()').extract_first()
-				score=job.xpath('div//button[@data-click-id="upvote"]/following-sibling::div/text()').extract_first()
-				time=job.xpath('div//a[@data-click-id="timestamp"]/text()').extract_first()
-				yield{'title':title,'link':link,'username':username,'user_url':user_url,'score':score,'time':time}
-
+			for thing in response.css("div.thing"):
+				upvotes = int(thing.css("::attr(data-score)").extratct_first())
+				if upvotes > 1:
+					queue.put(
+						json.dumps({
+							"subreddit": response.request.url.rsplit("/", 2)[1].encode("utf8"),
+							"title": str(thing.css("p.title a.title::text").extratct_first().encode("utf8")),
+							"upvotes":upvotes,
+							"thread_link":response.urljoin(
+								thing.css("p.title a.title::attr(href)").extratct_first().encode("utf8")),
+							}))
+			response.css("div.quote")
+			for href in response.css("span.next-button a::attr(href)"):
+				yield response.follow(href,self.parse)
 
 	queue = Queue.Queue()
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()
-	url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]		
+	subreddits = "FreeGamesOnSteam"
+	url = [""]
+	for sr in subreddits.split(';'):
+        urls.append('https://www.reddit.com/r/' + sr + '/search.json?restrict_sr=on&t=all')		
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = Reddit
