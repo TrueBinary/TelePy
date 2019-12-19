@@ -18,7 +18,11 @@
 
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
+import configparser
+import scrapy
+from scrapy.crawler import CrawlerProcess
+import json
+import time, threading,Queu
 import logging
 import socket,os,sys
 from time import * 
@@ -57,6 +61,83 @@ def start(bot,update):
 
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
+
+def crawler(bot,update):
+	
+
+	class Reddit(scrapy.Spider):
+		chat_id = "@FreeeGamesonSteam"
+		name = "reddit"
+		subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"
+
+		def parse(self,response):
+			for thing in response.css("div.thing"):
+				upvotes = int(thing.css("::attr(data-score)").extratct_first())
+				if upvotes >= 1:
+					queue.put(
+						json.dumps({
+							"subreddit": response.request.url.rsplit("/", 2)[1].encode("utf8"),
+							"title": str(thing.css("p.title a.title::text").extratct_first().encode("utf8")),
+							"upvotes":upvotes,
+							"thread_link":response.urljoin(
+								thing.css("p.title a.title::attr(href)").extratct_first().encode("utf8")),
+							}))
+			response.css("div.quote")
+			for href in response.css("span.next-button a::attr(href)"):
+				yield response.follow(href,self.parse)
+
+	queue = Queue.Queue()
+
+	send_thread = Result(bot,chat_id,queue)
+	send_thread.start()					
+
+	url = []
+	for sr in subreddit.split(";"):
+		urls.append("https://www.reddit.com/r/" + sr)
+
+	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
+	spider = RedditSpider
+	spider.start_urls = urls
+	process.crawl(spider)
+	process.start()
+
+	send_thread.stop = True
+	send_thread.join()
+
+class Result(threading.Thread):
+
+
+	def __init__(self,bot,chat_id,q):
+		self.bot = bot
+		self.chat_id = chat_id
+		self.queue = q
+		self.stop = False
+		threading.Thread.__init__(self)
+	def run(self):
+		while True:
+		time.sleep(0.1)
+		if not self.queue.empty():
+			r = self.queue.get()
+			result = json.loads(r)
+			text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
+			text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
+			text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
+			text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
+
+			try:
+				self.bot.send_message(parse_mode="HTML", chat_id=self.chat_id, text=text)
+			except Exception as e:
+				print(f"error {e}")
+		else:
+			if self.stop:
+				time.sleep(0.2)
+				try:
+					self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
+				except Exception as e:
+					print(f"Error {e}")
+
+			time.sleep(1)				
+
 
 def info(bot,update):
 	info_text = """
@@ -134,6 +215,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
+	dp.add_handler(CommandHandler("freegames", crawler))
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
