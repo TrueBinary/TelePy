@@ -100,7 +100,7 @@ def crawler(bot,update):
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()
-	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"		
+	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/top.json?sort=top"		
 
 	url = []
 	for sr in subreddit.split(";"):
