@@ -107,7 +107,7 @@ def crawler(bot,update,chat_id):
 	subreddits = "FreeGamesOnSteam"
 	url = [""]
 	for sr in subreddits.split(';'):
-        urls.append('https://www.reddit.com/r/' + sr + "/search.json?restrict_sr=on&t=all")
+		urls.append('https://www.reddit.com/r/' + sr + "/search.json?restrict_sr=on&t=all")
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = Reddit
