@@ -103,7 +103,7 @@ def crawler(bot,update):
 
 	url = []
 	for sr in subreddit.split(";"):
-		url.append("https://www.reddit.com/r/" + sr)
+		url.append("" + sr)
 		print(url)
 		print(sr)	
 
