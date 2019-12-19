@@ -145,6 +145,8 @@ class Result(threading.Thread):
 				if self.stop:
 					sleep(0.2)
 					try:
+						r = self.queue.get()
+						result = json.loads(r)
 						text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
 						text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
 						text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
