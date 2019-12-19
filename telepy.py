@@ -70,7 +70,7 @@ def ajuda(bot,update):
 
 
 def nothing(bot, update,args):
-	p = Process(target=crawler)
+	p = Process(target=crawler, args=(bot,update))
 	p.start()
 
 def crawler(bot,update):
