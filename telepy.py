@@ -23,11 +23,12 @@ try:
 except ImportError:
    import Queue as Queue
 
+from time import sleep
 import configparser
 import scrapy
 from scrapy.crawler import CrawlerProcess
 import json
-import time, threading
+import threading
 from multiprocessing import Process
 import logging
 import socket,os,sys
@@ -128,7 +129,7 @@ class Result(threading.Thread):
 	def run(self):
 		while True:
 
-			time.sleep(0.1)
+			sleep(0.1)
 			if not self.queue.empty():
 				r = self.queue.get()
 				result = json.loads(r)
@@ -143,7 +144,7 @@ class Result(threading.Thread):
 					print(f"error {e}")
 			else:
 				if self.stop:
-					time.sleep(0.2)
+					sleep(0.2)
 					try:
 						self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
 					except Exception as e:
