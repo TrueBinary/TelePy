@@ -21,7 +21,7 @@
 try:
    import queue
 except ImportError:
-   import Queue as queue
+   import Queue as Queue
 
 import configparser
 import scrapy
@@ -97,7 +97,7 @@ def crawler(bot,update):
 			for href in response.css("span.next-button a::attr(href)"):
 				yield response.follow(href,self.parse)
 
-	queue = queue.Queue()
+	queue = Queue.Queue()
 
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()					
