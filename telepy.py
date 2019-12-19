@@ -99,7 +99,6 @@ def crawler(bot,update):
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()
-"https://www.reddit.com/r/FreeGamesOnSteam/"		
 
 	url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
 
