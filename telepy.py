@@ -18,11 +18,16 @@
 
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+try:
+   import queue
+except ImportError:
+   import Queue as queue
+   
 import configparser
 import scrapy
 from scrapy.crawler import CrawlerProcess
 import json
-import time, threading,queue
+import time, threading
 import logging
 import socket,os,sys
 from time import * 
@@ -62,6 +67,11 @@ def start(bot,update):
 def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
+
+def nothing(bot, update,args):
+	p = Process(target=crawler)
+    p.start()
+
 def crawler(bot,update):
 	
 
@@ -86,7 +96,7 @@ def crawler(bot,update):
 			for href in response.css("span.next-button a::attr(href)"):
 				yield response.follow(href,self.parse)
 
-	queue = queue.queue()
+	queue = queue.Queue()
 
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()					
