@@ -107,7 +107,7 @@ def crawler(bot,update):
 
 	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
 	spider = Reddit
-	spider.start_urls = urls
+	spider.start_url = url
 	process.crawl(spider)
 	process.start()
 
