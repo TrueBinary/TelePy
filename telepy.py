@@ -80,7 +80,7 @@ def crawler(bot,update):
 	class Reddit(scrapy.Spider):
 		name = "reddit"
 		allowed_domains = ['reddit.com/r/FreeGamesOnSteam']
-		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/top.json?sort=top"]
+		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
 
 		def parse(self,response):
 			for thing in response.css("div.thing"):
