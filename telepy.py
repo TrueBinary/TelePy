@@ -86,7 +86,7 @@ def crawler(bot,update):
 			for href in response.css("span.next-button a::attr(href)"):
 				yield response.follow(href,self.parse)
 
-	queue = Queue.Queue()
+	queue = queue.Queue()
 
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()					
