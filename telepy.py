@@ -115,28 +115,29 @@ class Result(threading.Thread):
 		threading.Thread.__init__(self)
 	def run(self):
 		while True:
-		time.sleep(0.1)
-		if not self.queue.empty():
-			r = self.queue.get()
-			result = json.loads(r)
-			text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
-			text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
-			text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
-			text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
 
-			try:
-				self.bot.send_message(parse_mode="HTML", chat_id=self.chat_id, text=text)
-			except Exception as e:
-				print(f"error {e}")
-		else:
-			if self.stop:
-				time.sleep(0.2)
+			time.sleep(0.1)
+			if not self.queue.empty():
+				r = self.queue.get()
+				result = json.loads(r)
+				text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
+				text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
+				text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
+				text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
+
 				try:
-					self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
+					self.bot.send_message(parse_mode="HTML", chat_id=self.chat_id, text=text)
 				except Exception as e:
-					print(f"Error {e}")
+					print(f"error {e}")
+			else:
+				if self.stop:
+					time.sleep(0.2)
+					try:
+						self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
+					except Exception as e:
+						print(f"Error {e}")
 
-			time.sleep(1)				
+				time.sleep(1)				
 
 
 def info(bot,update):
