@@ -149,7 +149,7 @@ class Result(threading.Thread):
 						text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
 						text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
 						text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
-						text += '<b>Comment Link:</b> \n' + str(result['comment_link'].encode('utf-8')) + '\n
+						text += '<b>Comment Link:</b> \n' + str(result['comment_link'].encode('utf-8')) + '\n'
 						self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
 					except Exception as e:
 						print(f"Error {e}")
