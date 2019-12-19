@@ -28,6 +28,7 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 import json
 import time, threading
+from multiprocessing import Process
 import logging
 import socket,os,sys
 from time import * 
