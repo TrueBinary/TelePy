@@ -71,9 +71,10 @@ def ajuda(bot,update):
 
 
 def nothing(bot, update,args):
+	chat_id = "@FreeeGamesonSteam"
 	msg = "Searching...\nJust a moment, please."
 	bot.send_message(chat_id = "@FreeeGamesonSteam", text=msg)
-	p = Process(target=crawler, args=(bot,update,chat_id = "@FreeeGamesonSteam"))
+	p = Process(target=crawler, args=(bot,update,chat_id))
 	p.start()
 
 def crawler(bot,update,chat_id):
