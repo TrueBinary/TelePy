@@ -77,7 +77,6 @@ def crawler(bot,update):
 	
 
 	class Reddit(scrapy.Spider):
-		chat_id = "@FreeeGamesonSteam"
 		name = "reddit"
 		subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"
 
@@ -98,7 +97,7 @@ def crawler(bot,update):
 				yield response.follow(href,self.parse)
 
 	queue = Queue.Queue()
-
+	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
 	send_thread.start()					
 
@@ -227,7 +226,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
-	dp.add_handler(CommandHandler("freegames", nothing,pass_args=True))
+	dp.add_handler(CommandHandler("freegames", crawler))
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
