@@ -71,10 +71,12 @@ def ajuda(bot,update):
 
 
 def nothing(bot, update,args):
-	p = Process(target=crawler, args=(bot,update))
+	msg = "Searching...\nJust a moment, please."
+	bot.send_message(chat_id = "@FreeeGamesonSteam", text=msg)
+	p = Process(target=crawler, args=(bot,update,chat_id = "@FreeeGamesonSteam"))
 	p.start()
 
-def crawler(bot,update):
+def crawler(bot,update,chat_id):
 	
 
 	class Reddit(scrapy.Spider):
