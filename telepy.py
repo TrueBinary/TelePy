@@ -85,7 +85,7 @@ def crawler(bot,update):
 		def parse(self,response):
 			for thing in response.css("div.thing"):
 				upvotes = int(thing.css("::attr(data-score)").extratct_first())
-				if upvotes >= 1:
+				if upvotes > 1:
 					queue.put(
 						json.dumps({
 							"subreddit": response.request.url.rsplit("/", 2)[1].encode("utf8"),
