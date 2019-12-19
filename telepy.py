@@ -226,7 +226,7 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
-	dp.add_handler(CommandHandler("freegames", crawler))
+	dp.add_handler(CommandHandler("freegames", nothing,pass_args=True))
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
