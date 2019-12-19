@@ -78,7 +78,6 @@ def crawler(bot,update):
 
 	class Reddit(scrapy.Spider):
 		name = "reddit"
-		subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"
 
 		def parse(self,response):
 			for thing in response.css("div.thing"):
@@ -99,7 +98,8 @@ def crawler(bot,update):
 	queue = Queue.Queue()
 	chat_id = "@FreeeGamesonSteam"
 	send_thread = Result(bot,chat_id,queue)
-	send_thread.start()					
+	send_thread.start()
+	subreddit = "https://www.reddit.com/r/FreeGamesOnSteam/"		
 
 	url = []
 	for sr in subreddit.split(";"):
