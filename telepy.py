@@ -81,6 +81,9 @@ def crawler(bot,update):
 		name = "Reddit"
 		allowed_domains = ['reddit.com/r/FreeGamesOnSteam']
 		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
+		custom_settings = {
+		'FEED_URI': './output.json'
+		}
 
 		def parse(self,response):
 			for thing in response.css("div.thing"):
