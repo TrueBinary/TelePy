@@ -27,8 +27,9 @@ import json
 import threading
 from multiprocessing import Process
 import logging
+import praw
 import socket,os,sys
-from time import * 
+from time import sleep
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
 from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
@@ -66,101 +67,6 @@ def ajuda(bot,update):
 	update.message.reply_text("Use /get to get some random images of google")
 
 
-def nothing(bot, update,args):
-	chat_id = "@FreeeGamesonSteam"
-	msg = "Searching...\nJust a moment, please."
-	bot.send_message(chat_id = "@FreeeGamesonSteam", text=msg)
-	p = Process(target=crawler, args=(bot,update,chat_id))
-	p.start()
-
-def crawler(bot,update,chat_id):
-	
-
-	class Reddit(scrapy.Spider):
-		name = "Reddit"
-		allowed_domains = ['reddit.com/']
-		start_url = ["https://www.reddit.com/r/FreeGamesOnSteam/"]
-		custom_settings = {
-		'FEED_URI': './output.json'
-		}
-
-		def parse(self,response):
-			for thing in response.css("div.thing"):
-				upvotes = int(thing.css("::attr(data-score)").extratct_first())
-				if upvotes > 1:
-					queue.put(
-						json.dumps({
-							"subreddit": response.request.url.rsplit("/", 2)[1].encode("utf8"),
-							"title": str(thing.css("p.title a.title::text").extratct_first().encode("utf8")),
-							"upvotes":upvotes,
-							"thread_link":response.urljoin(
-								thing.css("p.title a.title::attr(href)").extratct_first().encode("utf8")),
-							}))
-			response.css("div.quote")
-			for href in response.css("span.next-button a::attr(href)"):
-				yield response.follow(href,self.parse)
-
-	queue = Queue.Queue()
-	chat_id = "@FreeeGamesonSteam"
-	send_thread = Result(bot,chat_id,queue)
-	send_thread.start()
-	subreddits = "FreeGamesOnSteam"
-	url = [""]
-	for sr in subreddits.split(';'):
-		url.append('https://www.reddit.com/r/' + sr + "/search.json?restrict_sr=on&t=all")
-
-	process = CrawlerProcess({"FEED_EXPORT_ENCODING": "utf-8", "LOG_ENABLE": False})
-	spider = Reddit
-	spider.start_urls = url
-	process.crawl(spider)
-	process.start()
-
-	send_thread.stop = True
-	send_thread.join()
-
-class Result(threading.Thread):
-
-
-	def __init__(self,bot,chat_id,q):
-		self.bot = bot
-		self.chat_id = chat_id
-		self.queue = q
-		self.stop = False
-		threading.Thread.__init__(self)
-	def run(self):
-		while True:
-
-			sleep(0.1)
-			if not self.queue.empty():
-				try:
-					r = self.queue.get()
-					result = json.loads(r)
-					text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
-					text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
-					text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
-					text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
-					text += '<b>Comment Link:</b> \n' + str(result['comment_link'].encode('utf-8')) + '\n'
-					self.bot.send_message(parse_mode="HTML", chat_id=self.chat_id, text=text)
-				except Exception as e:
-					print(f"error {e}")
-			else:
-				if self.stop:
-					sleep(0.2)
-					try:
-						r = self.queue.get()
-						result = json.loads(r)
-						text = '<b>' + str(result['title'].encode('utf-8')) + '</b>\n'
-						text += '<b>Subreddit:</b> ' + str(result['subreddit'].encode('utf-8')) + '\n'
-						text += '<b>Up Votes:</b> ' + str(result['upvotes']) + '\n'
-						text += '<b>Thread Link:</b> \n' + str(result['thread_link'].encode('utf-8')) + '\n'	
-						text += '<b>Comment Link:</b> \n' + str(result['comment_link'].encode('utf-8')) + '\n'
-						self.bot.send_message(parse_mode="HTML",chat_id=self.chat_id, text=text)
-					except Exception as e:
-						print(f"Error {e}")
-
-				sleep(1)				
-
-
 def info(bot,update):
 	info_text = """
 <b>Hi i'm bot of MrTrue,i was created to help you find some imagens on the google</b>
@@ -169,6 +75,22 @@ def info(bot,update):
 	"""
 
 	bot.send_message(parse_mode="HTML",chat_id=update.message.chat_id, text=info_text, reply_text=update.message.chat)
+
+def send_reddit():
+	reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
+          client_secret="APfQjGX8pmHdbMQe4YE8mhr6fII",
+          user_agent="by SirPlayer1")
+
+lista = []
+steam = []
+subreddit = reddit.subreddit("FreeGamesOnSteam")
+
+	for submission in subreddit.top(""):
+		steam.append([submission.title, submission.url])
+		chat_id="FreeeGamesonSteam"
+		bot.send_message(chat_id=chat_id, text=steam)
+			
+
 
 @run_async
 def get(bot,update,args,job_queue):
@@ -237,8 +159,8 @@ def main():
 	dp = updater.dispatcher
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
-	dp.add_handler(CommandHandler("freegames", nothing,pass_args=True))
 	dp.add_handler(CommandHandler("info", info))
+	dp.add_handler(CommandHandler("steam",send_reddit())
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	j = dp.job_queue
 	job_minute = j.run_once(get,25)
