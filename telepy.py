@@ -85,10 +85,10 @@ lista = []
 steam = []
 subreddit = reddit.subreddit("FreeGamesOnSteam")
 
-	for submission in subreddit.top(""):
-		steam.append([submission.title, submission.url])
-		chat_id="FreeeGamesonSteam"
-		bot.send_message(chat_id=chat_id, text=steam)
+for submission in subreddit.top("day"):
+	steam.append([submission.title, submission.url])
+	chat_id="@FreeeGamesonSteam"
+	bot.send_message(chat_id=chat_id, text=steam)
 			
 
 
