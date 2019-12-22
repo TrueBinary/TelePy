@@ -77,18 +77,18 @@ def info(bot,update):
 	bot.send_message(parse_mode="HTML",chat_id=update.message.chat_id, text=info_text, reply_text=update.message.chat)
 
 def send_reddit():
-reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
+	reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
           client_secret="APfQjGX8pmHdbMQe4YE8mhr6fII",
           user_agent="by SirPlayer1")
 
-lista = []
-steam = []
-subreddit = reddit.subreddit("FreeGamesOnSteam")
+	lista = []
+	steam = []
+	subreddit = reddit.subreddit("FreeGamesOnSteam")
 
-for submission in subreddit.top("day"):
-	steam.append([submission.title, submission.url])
-	chat_id="@FreeeGamesonSteam"
-	bot.send_message(chat_id=chat_id, text=steam)
+	for submission in subreddit.top("day"):
+		steam.append([submission.title, submission.url])
+		chat_id="@FreeeGamesonSteam"
+		bot.send_message(chat_id=chat_id, text=steam)
 			
 
 
