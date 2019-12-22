@@ -86,9 +86,10 @@ def send_reddit():
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 
 	for submission in subreddit.top("day"):
+		teste = """<b>Hey Have New Games to you get</b> """
 		steam.append([submission.title, submission.url])
 		chat_id="@FreeeGamesonSteam"
-		bot.send_message(chat_id=chat_id, text=steam)
+		bot.send_message(chat_id=update.message_id, text=steam,reply_text=chat_id)
 			
 
 
