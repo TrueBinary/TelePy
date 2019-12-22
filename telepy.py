@@ -162,6 +162,7 @@ def main():
 	dp.add_handler(CommandHandler("help",  ajuda))
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
+	dp.add_handler(CommandHandler("steam",send_reddit))
 	j = dp.job_queue
 	job_minute = j.run_once(get,25)
 	
