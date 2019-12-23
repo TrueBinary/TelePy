@@ -80,8 +80,10 @@ def send_reddit(bot,update):
 	
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	temp = [["vazio"]]
-	with open("temp.json",) as f:
-		dataold = json.load(f)
+	with open("temp.json","r+") as f:
+		data = json.load(f)
+		dataold = data.read()
+		
 		
 	for submission in subreddit.top("week"):
 		if temp[0:]:
