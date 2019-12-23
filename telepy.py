@@ -81,8 +81,8 @@ def send_reddit(bot,update):
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	temp = [["vazio"]]
 	with open("temp.json","r+") as f:
-		data = json.load(f)
-		dataold = read(data)
+		data = f.read(json.load(f))
+		dataold = data.read()
 		
 		
 	for submission in subreddit.top("week"):
@@ -91,7 +91,7 @@ def send_reddit(bot,update):
 		else:
 			temp.append([[submission.title,submission.url]])
 			print(len(temp))
-	if len(dataold) > len(temp):
+	if len(dataold) < len(temp):
 		print("teste")
 		with open("temp.json","w+") as jsonfile:
 			json.dump(temp,jsonfile)
