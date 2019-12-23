@@ -81,15 +81,22 @@ def send_reddit(bot,update):
           client_secret="APfQjGX8pmHdbMQe4YE8mhr6fII",
           user_agent="by SirPlayer1")
 
-	lista = []
-	steam = []
+	
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 
-	for submission in subreddit.top("day"):
-		teste = """<b>Hey Have New Games to you get</b> """
-		steam.append([submission.title, submission.url])
-		chat_id="@FreeeGamesonSteam"
-		bot.send_message(chat_id=chat_id, text=steam)
+	temp = [["vazio"]]
+
+  	for submission in subreddit.top("day"):
+    	if temp[0:]:
+			temp=[[submission.title,submission.url]]
+      		print("teste")
+    	else:
+      		temp.append([[submission.title,submission.url]])
+  	print(f"{temp} dentro do def")
+  	#print(postlist)
+  	postlist = temp
+	bot.send_message(chat_id="@FreeeGamesOnSteam", text=postlist)  
+
 			
 
 
