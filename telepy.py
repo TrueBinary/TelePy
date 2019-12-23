@@ -89,8 +89,10 @@ def send_reddit(bot,update):
 		else:
 			temp.append([[submission.title,submission.url]])
 	if dataold > temp:
+		print("teste")
 		with open("temp.json","w+") as jsonfile:
 			json.dump(temp,jsonfile)
+
 			lastnumberresquest = len(temp)
 			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp[lastnumberresquest])
 
