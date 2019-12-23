@@ -18,14 +18,8 @@
 
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import queue as Queue
 from time import sleep
-import configparser
-import scrapy
-from scrapy.crawler import CrawlerProcess
 import json
-import threading
-from multiprocessing import Process
 import logging
 import praw
 import socket,os,sys
@@ -34,7 +28,8 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Delay
 from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+					level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
@@ -85,17 +80,19 @@ def send_reddit(bot,update):
 	
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	temp = [["vazio"]]
-
+	with open("temp.json",) as f:
+		dataold = json.load(f)
+		
 	for submission in subreddit.top("day"):
 		if temp[0:]:
 			temp=[[submission.title,submission.url]]
-			print("teste")
 		else:
 			temp.append([[submission.title,submission.url]])
-	print(f"{temp} dentro do def")
-  	#print(postlist)
-	postlist = temp
-	bot.send_message(chat_id="@FreeeGamesOnSteam", text=postlist)  
+	if dataold > temp:
+		with open("temp.json","w+") as jsonfile:
+			json.dump(temp,jsonfile)
+			lastnumberresquest = len(temp)
+			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp[lastnumberresquest])
 
 			
 
@@ -110,7 +107,7 @@ def get(bot,update,args,job_queue):
 			response= google_images_download.googleimagesdownload()
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True}
 			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
+			bot.send_message(chat_id, text="wait for some seconds")
 			sleep(0.5)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)				
