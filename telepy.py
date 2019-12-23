@@ -88,7 +88,8 @@ def send_reddit(bot,update):
 			temp=[[submission.title,submission.url]]
 		else:
 			temp.append([[submission.title,submission.url]])
-	if len(dataold) > len(temp):
+			print(len(temp))
+	if len(dataold) >= len(temp):
 		print("teste")
 		with open("temp.json","w+") as jsonfile:
 			json.dump(temp,jsonfile)
