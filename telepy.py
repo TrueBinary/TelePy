@@ -82,7 +82,7 @@ def send_reddit(bot,update):
 	temp = [["vazio"]]
 	with open("temp.json","r+") as f:
 		data = json.load(f)
-		dataold = data.read()
+		dataold = read(data)
 		
 		
 	for submission in subreddit.top("week"):
