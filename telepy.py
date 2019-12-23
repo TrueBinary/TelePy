@@ -40,6 +40,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
+postlist = [[]]
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
@@ -83,7 +84,6 @@ def send_reddit(bot,update):
 
 	
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
-
 	temp = [["vazio"]]
 
 	for submission in subreddit.top("day"):
