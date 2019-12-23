@@ -83,13 +83,13 @@ def send_reddit(bot,update):
 	with open("temp.json",) as f:
 		dataold = json.load(f)
 		
-	for submission in subreddit.top("day"):
+	for submission in subreddit.top("week"):
 		if temp[0:]:
 			temp=[[submission.title,submission.url]]
 		else:
 			temp.append([[submission.title,submission.url]])
 			print(len(temp))
-	if len(dataold) >= len(temp):
+	if len(dataold) > len(temp):
 		print("teste")
 		with open("temp.json","w+") as jsonfile:
 			json.dump(temp,jsonfile)
