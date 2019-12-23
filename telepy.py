@@ -35,12 +35,12 @@ from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-					level=logging.DEBUG)
+					level=logging.LOG)
 
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
-postlist = [[]]
+postlist = [["Teste"]]
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
@@ -77,6 +77,7 @@ def info(bot,update):
 
 	bot.send_message(parse_mode="HTML",chat_id=update.message.chat_id, text=info_text, reply_text=update.message.chat)
 
+@run_async
 def send_reddit(bot,update):
 	reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
           client_secret="APfQjGX8pmHdbMQe4YE8mhr6fII",
@@ -170,6 +171,7 @@ def main():
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
+	print(postlist)
 	j = dp.job_queue
 	job_minute = j.run_once(get,25)
 	
