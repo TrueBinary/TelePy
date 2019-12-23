@@ -34,8 +34,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Delay
 from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-					level=logging.LOG)
+logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
@@ -76,7 +75,7 @@ def info(bot,update):
 	"""
 
 	bot.send_message(parse_mode="HTML",chat_id=update.message.chat_id, text=info_text, reply_text=update.message.chat)
-
+	
 @run_async
 def send_reddit(bot,update):
 	reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
