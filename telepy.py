@@ -84,7 +84,7 @@ def send_reddit(bot,update):
 	 dataold = json.load(f)
 		
 		
-	for submission in subreddit.top("week"):
+	for submission in subreddit.top("day"):
 		if temp[0:]:
 			temp=[[submission.title,submission.url]]
 		else:
