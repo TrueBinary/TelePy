@@ -79,6 +79,7 @@ def send_reddit(bot,update):
 
 	
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
+
 	temp = [["vazio"]]
 	with open("temp.json") as f:
 	 dataold = json.load(f)
@@ -95,6 +96,8 @@ def send_reddit(bot,update):
 		with open("temp.json","w+") as jsonfile:
 			json.dump(temp,jsonfile)
 			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp)
+			sleep(120)
+			send_reddit()
 			
 
 			
