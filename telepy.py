@@ -90,12 +90,14 @@ def send_reddit(bot,update):
 			temp=[[submission.title,submission.url]]
 		else:
 			temp.append([[submission.title,submission.url]])
-	if len(dataold) < len(temp):
-		with open("temp.json","w+") as jsonfile:
-			json.dump(temp,jsonfile)
-			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp.replace("[],", "\n"))
-			sleep(120)
-			send_reddit()
+	for len(temp) in range(len(dataold)):
+		print(len(temp),len(dataold,"teste"))
+		if len(dataold) < len(temp):
+			with open("temp.json","w+") as jsonfile:
+				json.dump(temp,jsonfile)
+				bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp.replace("[],", "\n"))
+				sleep(120)
+				send_reddit()
 
 			
 
