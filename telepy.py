@@ -82,23 +82,19 @@ def send_reddit(bot,update):
 
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	temp = [["vazio"]]
-	while True:
-		with open("temp.json","r+",encoding="utf-8") as f:
-			dataold = f.read(json.loads(str(f))
-		for submission in subreddit.top("day"):
-			if temp[0:]:
-				temp=[[submission.title,submission.url]]
-			else:
-				temp.append([[submission.title,submission.url]])		
-		if len(dataold) < len(temp):
-			with open("temp.json","w+","encoding="utf-8"") as jsonfile:
-				json.dumps(temp,jsonfile)
-				bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp.replace("[],", "\n"))
-				sleep(120)
-				continue
-
-			
-
+	with open("temp.json","r+",encoding="utf-8") as f:
+		dataold = f.read(json.loads(str(f))
+	for submission in subreddit.top("day"):
+		if temp[0:]:
+			temp=[[submission.title,submission.url]]
+		else:
+			temp.append([[submission.title,submission.url]])
+	if len(dataold) < len(temp):
+		with open("temp.json","w+","encoding="utf-8"") as jsonfile:
+			json.dumps(temp,jsonfile)
+			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp.replace("[],", "\n"))
+			sleep(120)
+			send_reddit()
 
 @run_async
 def get(bot,update,args,job_queue):
