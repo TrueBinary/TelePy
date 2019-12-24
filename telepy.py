@@ -34,6 +34,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 MODE = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
+CLIENT_ID = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+USER_AGENT = os.getenv("USER_AGENT")
 postlist = [["Teste"]]
 if MODE == "dev":
 	def run(updater):
@@ -73,9 +76,9 @@ def info(bot,update):
 	
 @run_async
 def send_reddit(bot,update):
-	reddit = praw.Reddit(client_id="A0h39mSyE9wTZg",
-		  				client_secret="APfQjGX8pmHdbMQe4YE8mhr6fII",
-		  				user_agent="by SirPlayer1")
+	reddit = praw.Reddit(client_id="CLIENT_ID",
+		  				client_secret="CLIENT_SECRET",
+		  				user_agent="USER_AGENT")
 
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	temp = [["vazio"]]
