@@ -102,6 +102,10 @@ def send_reddit(bot,update):
 		if dataid in rid:
 			return True
 
+	def datadel():
+		del postlist[:]
+		del rid[:]
+
 	def check():
 		links = rid
 		for link in links:
@@ -119,6 +123,7 @@ def send_reddit(bot,update):
 					sleep(560)
 
 	while True:
+		datadel()
 		for submission in subreddit.top("day"):
 			if submission.title not in postlist:
 				postlist.append([submission.title,submission.url])
