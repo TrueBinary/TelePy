@@ -78,9 +78,9 @@ def info(bot,update):
 @run_async
 def send_reddit(bot,update):
 
-	reddit = praw.Reddit(client_id="CLIENT_ID",
-						client_secret="CLIENT_SECRET",
-						user_agent="USER_AGENT")
+	reddit = praw.Reddit(client_id=CLIENT_ID,
+						client_secret=CLIENT_SECRET,
+						user_agent=USER_AGENT)
 
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	
