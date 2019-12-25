@@ -107,6 +107,7 @@ def send_reddit(bot,update):
 		for link in links:
 			dataid = link[:]
 			if fileindb(dataid):
+				sleep(560)
 				pass
 			else:
 				print(dataid)
