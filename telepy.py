@@ -112,7 +112,6 @@ def send_reddit(bot,update):
 			else:
 				print(dataid)
 				if insubreddit(dataid):
-					print("id gravado")
 					file = open("db.txt", "a")
 					file.write(str(rid)+"\n")
 					file.close()
@@ -122,9 +121,13 @@ def send_reddit(bot,update):
 
 	while True:
 		for submission in subreddit.top("day"):
-			if submission.url not in postlist:
+			if submission.title not in postlist:
 				postlist.append([submission.title,submission.url])
 				rid.append(submission.id)
+			elif submission.title in postlist:
+				pass
+
+					
 		check()
 		sleep(560)
 		continue
