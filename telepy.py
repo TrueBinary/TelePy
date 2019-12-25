@@ -37,7 +37,8 @@ TOKEN = os.getenv("TOKEN")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 USER_AGENT = os.getenv("USER_AGENT")
-postlist = [["Teste"]]
+postlist = []
+rid = [] #this is reddit post id 
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
@@ -76,25 +77,60 @@ def info(bot,update):
 	
 @run_async
 def send_reddit(bot,update):
+
 	reddit = praw.Reddit(client_id="CLIENT_ID",
-		  				client_secret="CLIENT_SECRET",
-		  				user_agent="USER_AGENT")
+						client_secret="CLIENT_SECRET",
+						user_agent="USER_AGENT")
 
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
-	temp = [["vazio"]]
-	with open("temp.json","r+",encoding="utf-8") as f:
-		dataold = f.read(json.loads(str(f))
-	for submission in subreddit.top("day"):
-		if temp[0:]:
-			temp=[[submission.title,submission.url]]
+	
+
+	def fileindb(rid):
+		print("teste no filedb")
+		found = False
+		file = open("teste.txt","r+")
+		filelist = file.readlines()
+		file.close()
+		if rid not in filelist:
+			print("rid false")
+			found = False
 		else:
-			temp.append([[submission.title,submission.url]])
-	if len(dataold) < len(temp):
-		with open("temp.json","w+","encoding="utf-8"") as jsonfile:
-			json.dumps(temp,jsonfile)
-			bot.send_message(chat_id="@FreeeGamesOnSteam", text=temp.replace("[],", "\n"))
-			sleep(120)
-			send_reddit()
+			print("rid true")
+			found = True
+		return found
+
+	def insubreddit(dataid):
+		if dataid in rid:
+			return True
+
+	def check():
+		links = rid
+		for link in links:
+			dataid = link[:]
+			print("dentro da função check")
+			if fileindb(dataid):
+				print("já esta dentro")
+			else:
+				print(dataid)
+				if insubreddit(dataid):
+					print("id gravado")
+					file = open("teste.txt", "a")
+					file.write(str(rid)+"\n")
+					file.close()
+					redditconteudo = str(postlist).replace("[""],","\n")
+					bot.send_message(chat_id="@FreeeGamesOnSteam", text=redditconteudo)
+					sleep(560)
+
+	while True:
+		for submission in subreddit.top("day"):
+			if submission.url not in postlist:
+				postlist.append([submission.title,submission.url])
+				rid.append(submission.id)
+		check()
+		sleep(560)
+		continue
+
+
 
 @run_async
 def get(bot,update,args,job_queue):
