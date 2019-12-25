@@ -97,7 +97,7 @@ def send_reddit(bot,update):
 			print("rid true")
 			found = True
 		return found
-	#
+	#verifica se o id esta dentro da lista
 	def insubreddit(dataid):
 		if dataid in rid:
 			return True
@@ -115,7 +115,7 @@ def send_reddit(bot,update):
 					file = open("db.txt", "a")
 					file.write(str(rid)+"\n")
 					file.close()
-					redditconteudo = str(postlist).replace("[\'\'],","\n")
+					redditconteudo = str(postlist).replace("[]"," ")
 					bot.send_message(chat_id="@FreeeGamesOnSteam", text=redditconteudo)
 					sleep(560)
 
