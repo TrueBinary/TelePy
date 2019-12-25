@@ -116,8 +116,9 @@ def send_reddit(bot,update):
 			else:
 				print(dataid)
 				if insubreddit(dataid):
-					file = open("db.txt", "a")
-					file.write(str(rid)+"\n")
+					file = open("db.txt", "a+")
+					file.write(rid)
+					file.write("\n")
 					file.close()
 					bot.send_message(chat_id="@FreeeGamesOnSteam", text=str(postlist))
 					sleep(560)
