@@ -115,8 +115,7 @@ def send_reddit(bot,update):
 					file = open("db.txt", "a")
 					file.write(str(rid)+"\n")
 					file.close()
-					redditconteudo = str(postlist).replace("[]"," ")
-					bot.send_message(chat_id="@FreeeGamesOnSteam", text=redditconteudo)
+					bot.send_message(chat_id="@FreeeGamesOnSteam", text=str(postlist))
 					sleep(560)
 
 	while True:
