@@ -86,9 +86,8 @@ def send_reddit(bot,update):
 	
 
 	def fileindb(rid):
-		print("teste no filedb")
 		found = False
-		file = open("teste.txt","r+")
+		file = open("db.txt","r+")
 		filelist = file.readlines()
 		file.close()
 		if rid not in filelist:
@@ -114,7 +113,7 @@ def send_reddit(bot,update):
 				print(dataid)
 				if insubreddit(dataid):
 					print("id gravado")
-					file = open("teste.txt", "a")
+					file = open("db.txt", "a")
 					file.write(str(rid)+"\n")
 					file.close()
 					redditconteudo = str(postlist).replace("[""],","\n")
