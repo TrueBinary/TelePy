@@ -87,14 +87,15 @@ def send_reddit(bot,update):
 	#checa se o id do post esta dentro do arquivo
 	def fileindb(rid):
 		found = False
-		file = open("db.txt","r")
+		file = open("db.txt","r+")
 		filelist = file.readlines()
 		file.close()
+		#verifica dentro do arquivo se o id já foi listado
+		#se for falso ele ira retornar false e o id sera gravado
+		#se for verdadeiro o id não será gravado é o bot continuara segundo
 		if rid not in filelist:
-			print("rid false")
 			found = False
 		else:
-			print("rid true")
 			found = True
 		return found
 	#verifica se o id esta dentro da lista
@@ -114,10 +115,10 @@ def send_reddit(bot,update):
 				sleep(560)
 				pass
 			else:
-				print(dataid)
 				if insubreddit(dataid):
-					file = open("db.txt", "a+")
-					file.write(str(rid)+"\n")
+					#se não estiver id não estiver dentro da lista ele ira ser gravado
+					file = open("db.txt", "a")
+					file.writelines(rid)
 					file.close()
 					bot.send_message(chat_id="@FreeeGamesOnSteam", text=str(postlist))
 					sleep(560)
@@ -125,12 +126,11 @@ def send_reddit(bot,update):
 	while True:
 		datadel()
 		for submission in subreddit.top("day"):
-			if submission.title not in postlist:
+			if submission.title not in postlist[:]:
 				postlist.append([submission.title,submission.url])
 				rid.append(submission.id)
-			elif submission.title in postlist:
+			elif submission.id in rid[:]:
 				pass
-		
 		check()
 		sleep(560)
 		continue
