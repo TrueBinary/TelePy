@@ -84,10 +84,10 @@ def send_reddit(bot,update):
 
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
 	
-
+	#checa se o id do post esta dentro do arquivo
 	def fileindb(rid):
 		found = False
-		file = open("db.txt","r+")
+		file = open("db.txt","r")
 		filelist = file.readlines()
 		file.close()
 		if rid not in filelist:
@@ -97,7 +97,7 @@ def send_reddit(bot,update):
 			print("rid true")
 			found = True
 		return found
-
+	#
 	def insubreddit(dataid):
 		if dataid in rid:
 			return True
@@ -106,9 +106,8 @@ def send_reddit(bot,update):
 		links = rid
 		for link in links:
 			dataid = link[:]
-			print("dentro da função check")
 			if fileindb(dataid):
-				print("já esta dentro")
+				pass
 			else:
 				print(dataid)
 				if insubreddit(dataid):
@@ -126,8 +125,7 @@ def send_reddit(bot,update):
 				rid.append(submission.id)
 			elif submission.title in postlist:
 				pass
-
-					
+		
 		check()
 		sleep(560)
 		continue
