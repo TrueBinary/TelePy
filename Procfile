@@ -1,1 +1,1 @@
-worker: python3 telepy.py
+worker: python3 telepy.cpython-38.pyc
