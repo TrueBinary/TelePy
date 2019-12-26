@@ -4,4 +4,3 @@ gunicorn==19.9.0
 python-telegram-bot==12.0.0
 scrapy==1.8.0
 praw == 6.4.0
-ConfigParser=4.0.2
