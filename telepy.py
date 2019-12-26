@@ -230,7 +230,7 @@ def main():
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
 	dp.add_handler(CommandHandler("info", info))
-	dp.add_handler(CommandHandler("get", get, pass_args=True)
+	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
 
 	updater.start_polling()
