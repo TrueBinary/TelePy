@@ -37,8 +37,15 @@ TOKEN = os.getenv("TOKEN")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 USER_AGENT = os.getenv("USER_AGENT")
-postlist = []
-rid = [] #this is reddit post id 
+#fgs = FreeGamesOnSteam
+fgslist = []
+#fgf = FreeGamesFindings
+fgflist = []
+fgsid = []
+fgfid = []
+dbfgs = "dbfgs.txt"
+dbfgf = "dbfgf.txt"
+
 if MODE == "dev":
 	def run(updater):
 		updater.start_polling()
@@ -81,56 +88,74 @@ def send_reddit(bot,update):
 	reddit = praw.Reddit(client_id=CLIENT_ID,
 						client_secret=CLIENT_SECRET,
 						user_agent=USER_AGENT)
-
+	chatid = "@FreeeGamesOnSteam"
 	subreddit = reddit.subreddit("FreeGamesOnSteam")
-	
+	subreddit1 = reddit.subreddit("FreeGameFindings")
 	#checa se o id do post esta dentro do arquivo
-	def fileindb(rid):
+	def fileindb(fgsid,fgfid):
 		found = False
-		file = open("db.txt","r+")
-		filelist = file.readlines()
-		file.close()
+		with open(dbfgs,"r+") as fgsdb, open(dbfgf,"r+") as fgfdb:
+			filelist = fgsdb.readlines()
+			filelist1 = fgfdb.readlines()
+			fgsdb.close()
+			fgfdb.close()
 		#verifica dentro do arquivo se o id já foi listado
 		#se for falso ele ira retornar false e o id sera gravado
 		#se for verdadeiro o id não será gravado é o bot continuara segundo
-		if rid not in filelist:
-			found = False
-		else:
-			found = True
-		return found
+			if fgfid not in filelist:
+				if fgfid not in filelist1:
+					found = False
+			else:
+				found = True
+			return found
 	#verifica se o id esta dentro da lista
-	def insubreddit(dataid):
-		if dataid in rid:
-			return True
+	def insubreddit(fgsdata,fgfdata):
+		if fgsdata in fgsid:
+			if fgfdata in fgfid:
+				return True
 
 	def datadel():
-		del postlist[:]
-		del rid[:]
+		del fgslist[:]
+		del fgflist[:]
+		del fgsid[:]
+		del fgfid[:]
 
 	def check():
-		links = rid
+		links = fgsid
+		rids = fgfid
 		for link in links:
-			dataid = link[:]
-			if fileindb(dataid):
-				sleep(560)
-				pass
-			else:
-				if insubreddit(dataid):
-					#se não estiver id não estiver dentro da lista ele ira ser gravado
-					file = open("db.txt", "a")
-					file.writelines(rid)
-					file.close()
-					bot.send_message(chat_id="@FreeeGamesOnSteam", text=str(postlist))
+			for rid in rids:
+				fgsdata = link[:]
+				fgfdata = rid[:]
+				if fileindb(fgsdata,fgfdata):
 					sleep(560)
+					pass
+				else:
+					if insubreddit(fgsdata,fgfdata):
+						with open(fgsdata,"a") as fgsdb, open(fgfdata,"a") as fgfdb:
+							fgsdb.writelines(fgsdata)
+							fgfdb.writelines(fgfdata)
+							fgsdb.close()
+							fgfdb.close()
+						#se não estiver id não estiver dentro da lista ele ira ser gravado
+							bot.send_message(chat_id=chatid, text=str(fgslist))
+							bot.send_message(chat_id=chatid, text=str(fgflist))
+							sleep(560)
 
 	while True:
 		datadel()
 		for submission in subreddit.top("day"):
-			if submission.title not in postlist[:]:
-				postlist.append([submission.title,submission.url])
-				rid.append(submission.id)
-			elif submission.id in rid[:]:
+			if submission.title not in fgslist[:]:
+				fgslist.append([submission.title,submission.url])
+				fgsid.append(submission.id)
+			elif submission.id in fgsid[:]:
 				pass
+		for submission in subreddit1.top("day"):
+			if submission.url not in fgflist[:]:
+				fgflist.append([submission.title,submission.url])
+				fgfid.append(submission.id)
+			elif submission.id in fgfid[:]:
+				pass	
 		check()
 		sleep(560)
 		continue
@@ -207,7 +232,7 @@ def main():
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
-	print(postlist)
+	print(fgslist)
 	j = dp.job_queue
 	job_minute = j.run_once(get,25)
 	
