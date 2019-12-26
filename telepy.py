@@ -138,8 +138,10 @@ def send_reddit(bot,update):
 							fgsdb.close()
 							fgfdb.close()
 						#se não estiver id não estiver dentro da lista ele ira ser gravado
-							bot.send_message(chat_id=chatid, text=str(fgslist))
-							bot.send_message(chat_id=chatid, text=str(fgflist))
+							fgsfilt = str(fgslist).replace("]"," ").replace("["," ").replace("'"," ").replace(",","\n")
+							fgffilt = str(fgflist).replace("]"," ").replace("["," ").replace("'"," ").replace(",","\n")
+							bot.send_message(chat_id=chatid, text=fgsfilt)
+							bot.send_message(chat_id=chatid, text=fgffilt)
 							sleep(560)
 
 	while True:
