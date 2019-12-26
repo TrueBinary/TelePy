@@ -236,7 +236,7 @@ def main():
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
 	j = dp.job_queue
-	j.run_once(get,2.5)
+	j.run_once(get,3)
 	
 	updater.start_polling()
 	run(updater)
