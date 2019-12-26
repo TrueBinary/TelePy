@@ -113,7 +113,7 @@ def send_reddit(bot,update):
 		if fgsdata in fgsid:
 			if fgfdata in fgfid:
 				return True
-
+	#deleta as listas para evitar que fiquem duplicadas 
 	def datadel():
 		del fgslist[:]
 		del fgflist[:]
