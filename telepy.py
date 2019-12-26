@@ -179,8 +179,10 @@ def get(bot,update,job_queue,args):
 				nome = str(i)				
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:	
+				else:
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
@@ -196,8 +198,10 @@ def get(bot,update,job_queue,args):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:	
+				else:
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
@@ -214,16 +218,16 @@ def get(bot,update,job_queue,args):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-					
-				else:	
+				else:
+					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
 	except IndexError as e:
 		bot.send_message(chat_id=chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
-	job_queue.run_once(get, 25, context=chat_id)	
 
 def main():
 	updater = Updater(TOKEN)
@@ -233,8 +237,6 @@ def main():
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
-	j = dp.job_queue
-	j.run_once(get,30)
 	
 	updater.start_polling()
 	run(updater)
