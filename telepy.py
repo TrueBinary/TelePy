@@ -102,6 +102,7 @@ def send_reddit(bot,update):
 		#verifica dentro do arquivo se o id já foi listado
 		#se for falso ele ira retornar false e o id sera gravado
 		#se for verdadeiro o id não será gravado é o bot continuara segundo
+			
 			if fgsid not in filelist:
 				if fgfid not in filelist1:
 					found = False
@@ -132,7 +133,7 @@ def send_reddit(bot,update):
 					pass
 				else:
 					if insubreddit(fgsdata,fgfdata):
-						with open(fgsdata,"a") as fgsdb, open(fgfdata,"a") as fgfdb:
+						with open(dbfgs,"a") as fgsdb, open(dbfgf,"a") as fgfdb:
 							fgsdb.writelines(fgsdata)
 							fgfdb.writelines(fgfdata)
 							fgsdb.close()
