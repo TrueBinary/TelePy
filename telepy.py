@@ -23,7 +23,6 @@ import json
 import logging
 import praw
 import socket,os,sys
-from time import sleep
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
 from telegram.ext.dispatcher import run_async
 from google_images_download import google_images_download
@@ -167,6 +166,7 @@ def send_reddit(bot,update):
 def get(bot,update,job_queue,args):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
+
 	try:
 		if len(args) == 1:
 			keyword = args[0]
@@ -223,7 +223,7 @@ def get(bot,update,job_queue,args):
 	except IndexError as e:
 		bot.send_message(chat_id=chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
-		
+	job_queue.run_once(get, 25, context=chat_id)	
 
 def main():
 	updater = Updater(TOKEN)
