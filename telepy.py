@@ -163,7 +163,7 @@ def send_reddit(bot,update):
 
 
 @run_async
-def get(bot,update,job_queue,args):
+def get(bot,update,job,job_queue,args):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 
