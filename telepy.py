@@ -36,9 +36,9 @@ TOKEN = os.getenv("TOKEN")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 USER_AGENT = os.getenv("USER_AGENT")
-#fgs = FreeGamesOnSteam
+#fgs = FreeGamesOnSteam subreddits
 fgslist = []
-#fgf = FreeGamesFindings
+#fgf = FreeGamesFindings subreddits
 fgflist = []
 fgsid = []
 fgfid = []
@@ -119,7 +119,7 @@ def send_reddit(bot,update):
 		del fgflist[:]
 		del fgsid[:]
 		del fgfid[:]
-
+	#confere se realmente já foi mandado ou não para o canal 
 	def check():
 		links = fgsid
 		rids = fgfid
@@ -130,7 +130,7 @@ def send_reddit(bot,update):
 				if fileindb(fgsdata,fgfdata):
 					sleep(560)
 					pass
-				else:
+				else: #a função fileindb não conseguir encontrar o id tudo que estiver em fgslist e fgflist será mandado para o seu cana
 					if insubreddit(fgsdata,fgfdata):
 						with open(dbfgs,"a") as fgsdb, open(dbfgf,"a") as fgfdb:
 							fgsdb.writelines(fgsdata)
@@ -176,7 +176,7 @@ def get(update,context):
 			arguments = {"keywords":keyword,"limit":1,"no_directory":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text="wait for some seconds")
-			sleep(0.5)
+			sleep(0.8)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)				
 				dic = os.getcwd() + "/downloads/" + nome
@@ -193,7 +193,7 @@ def get(update,context):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
+			sleep(0.8)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
@@ -211,7 +211,7 @@ def get(update,context):
 			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True}
 			paths = response.download(arguments)
 			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.5)
+			sleep(0.8)
 			for i in os.listdir("/app/downloads/"):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
