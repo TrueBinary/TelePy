@@ -235,7 +235,7 @@ def main():
 	dp.add_handler(CommandHandler("steam",send_reddit))
 	print(fgslist)
 	j = dp.job_queue
-	job_minute = j.run_once(get,25)
+	j.run_once(get,25)
 	
 	updater.start_polling()
 	run(updater)
