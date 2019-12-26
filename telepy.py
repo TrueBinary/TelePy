@@ -102,7 +102,7 @@ def send_reddit(bot,update):
 		#verifica dentro do arquivo se o id já foi listado
 		#se for falso ele ira retornar false e o id sera gravado
 		#se for verdadeiro o id não será gravado é o bot continuara segundo
-			if fgfid not in filelist:
+			if fgsid not in filelist:
 				if fgfid not in filelist1:
 					found = False
 			else:
