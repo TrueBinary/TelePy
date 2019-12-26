@@ -163,10 +163,9 @@ def send_reddit(bot,update):
 
 
 @run_async
-def get(bot,update,job,job_queue,args):
+def get(bot,update,job_queue,args):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
-
 	try:
 		if len(args) == 1:
 			keyword = args[0]
@@ -179,10 +178,8 @@ def get(bot,update,job,job_queue,args):
 				nome = str(i)				
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
+				else:	
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
@@ -198,10 +195,8 @@ def get(bot,update,job,job_queue,args):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
+				else:	
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
@@ -218,16 +213,16 @@ def get(bot,update,job,job_queue,args):
 				nome = str(i)
 				dic = os.getcwd() + "/downloads/" + nome
 				if nome.endswith("gif"):
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
 					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:
-					job_queue.run_once(callback_alarm, 15, context=chat_id)
+					
+				else:	
 					bot.send_photo(chat_id, photo=open(dic,"rb"))
 				os.remove(f"{dic}")
 
 	except IndexError as e:
 		bot.send_message(chat_id=chat_id,text="Error none arguments")
 		print(f"some error we have here dev look at here {e}")
+		
 
 def main():
 	updater = Updater(TOKEN)
@@ -237,6 +232,8 @@ def main():
 	dp.add_handler(CommandHandler("info", info))
 	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
+	j = dp.job_queue()
+	j.run_once(get,30)
 	
 	updater.start_polling()
 	run(updater)
