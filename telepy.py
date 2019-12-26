@@ -163,7 +163,7 @@ def send_reddit(bot,update):
 
 
 @run_async
-def get(bot,update,job_queue,args):
+def get(bot,update):
 	print(os.getcwd())
 	chat_id = update.message.chat_id
 	try:
@@ -230,11 +230,9 @@ def main():
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
 	dp.add_handler(CommandHandler("info", info))
-	dp.add_handler(CommandHandler("get", get, pass_args=True,pass_job_queue=True))
+	dp.add_handler(CommandHandler("get", get, pass_args=True)
 	dp.add_handler(CommandHandler("steam",send_reddit))
-	j = dp.job_queue()
-	j.run_once(get,30)
-	
+
 	updater.start_polling()
 	run(updater)
 
