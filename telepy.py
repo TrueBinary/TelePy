@@ -20,6 +20,7 @@
 # -*- coding: utf-8 -*-
 from time import sleep
 import json
+import re 
 import logging
 import praw
 import socket,os,sys
