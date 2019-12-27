@@ -135,9 +135,7 @@ def send_reddit(bot,update):
 					if insubreddit(fgsdata,fgfdata):
 						with open(dbfgs,"a") as fgsdb, open(dbfgf,"a") as fgfdb:
 							fgsdb.writelines(fgsdata)
-							fgsdb.writelines("\n")
 							fgfdb.writelines(fgfdata)
-							fgfdb.writelines("\n")
 							fgsdb.close()
 							fgfdb.close()
 						#se não estiver id não estiver dentro da lista ele ira ser gravado
@@ -152,13 +150,13 @@ def send_reddit(bot,update):
 		for submission in subreddit.top("day"):
 			if submission.title not in fgslist[:]:
 				fgslist.append([submission.title,submission.url])
-				fgsid.append(submission.id)
+				fgsid.append(submission.title)
 			elif submission.id in fgsid[:]:
 				pass
 		for submission in subreddit1.top("day"):
-			if submission.url not in fgflist[:]:
+			if submission.title not in fgflist[:]:
 				fgflist.append([submission.title,submission.url])
-				fgfid.append(submission.id)
+				fgfid.append(submission.title)
 			elif submission.id in fgfid[:]:
 				pass	
 		check()
