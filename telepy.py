@@ -135,9 +135,7 @@ def send_reddit(bot,update):
 					if insubreddit(fgsdata,fgfdata):
 						with open(dbfgs,"a") as fgsdb, open(dbfgf,"a") as fgfdb:
 							fgsdb.writelines(fgsdata)
-							fgsdb.writelines("\n")
 							fgfdb.writelines(fgfdata)
-							fgfdb.writelines("\n")
 							fgsdb.close()
 							fgfdb.close()
 						#se não estiver id não estiver dentro da lista ele ira ser gravado
