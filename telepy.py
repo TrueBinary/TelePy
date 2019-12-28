@@ -134,8 +134,8 @@ def send_reddit(bot,update):
 				else: #a função fileindb não conseguir encontrar o id tudo que estiver em fgslist e fgflist será mandado para o seu cana
 					if insubreddit(fgsdata,fgfdata):
 						with open(dbfgs,"a") as fgsdb, open(dbfgf,"a") as fgfdb:
-							fgsdb.writelines(fgsdata)
-							fgfdb.writelines(fgfdata)
+							fgsdb.writelines("\n"+str(fgsdata))
+							fgfdb.writelines("\n"+str(fgfdata))
 							fgsdb.close()
 							fgfdb.close()
 						#se não estiver id não estiver dentro da lista ele ira ser gravado
