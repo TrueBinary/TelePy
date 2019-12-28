@@ -1,1 +1,1 @@
-web: python telepy.cpython-38.pyc
+worker: python telepy.cpython-38.pyc
