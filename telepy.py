@@ -165,70 +165,6 @@ def send_reddit(bot,update):
 
 
 
-@run_async
-def get(update,context):
-	args = context.args
-	bot = context.bot
-	job_queue = context.job_queue
-	print(os.getcwd())
-	chat_id = update.message.chat_id
-	try:
-		if len(args) == 1:
-			keyword = args[0]
-			response= google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"limit":1,"no_directory":True}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text="wait for some seconds")
-			sleep(0.8)
-			for i in os.listdir("/app/downloads/"):
-				nome = str(i)				
-				dic = os.getcwd() + "/downloads/" + nome
-				if nome.endswith("gif"):
-					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:	
-					bot.send_photo(chat_id, photo=open(dic,"rb"))
-				os.remove(f"{dic}")
-
-		elif len(args) == 2:
-			keyword = args[0]
-			sufkey = args[1]
-			response= google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"limit":1,"no_directory":True}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.8)
-			for i in os.listdir("/app/downloads/"):
-				nome = str(i)
-				dic = os.getcwd() + "/downloads/" + nome
-				if nome.endswith("gif"):
-					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-				else:	
-					bot.send_photo(chat_id, photo=open(dic,"rb"))
-				os.remove(f"{dic}")
-
-		else:
-			prekey = args[0]
-			keyword = args[1]
-			sufkey = args[2]
-			response= google_images_download.googleimagesdownload()
-			arguments = {"keywords":keyword,"suffix_keywords":sufkey,"prefix_keywords":prekey,"limit":1,"no_directory":True}
-			paths = response.download(arguments)
-			bot.send_message(chat_id, text= "wait for some seconds")
-			sleep(0.8)
-			for i in os.listdir("/app/downloads/"):
-				nome = str(i)
-				dic = os.getcwd() + "/downloads/" + nome
-				if nome.endswith("gif"):
-					bot.sendDocument(chat_id=chat_id, document=open(dic,"rb"))
-					
-				else:	
-					bot.send_photo(chat_id, photo=open(dic,"rb"))
-				os.remove(f"{dic}")
-
-	except IndexError as e:
-		bot.send_message(chat_id=chat_id,text="Error none arguments")
-		print(f"some error we have here dev look at here {e}")
-		
 
 def main():
 	updater = Updater(TOKEN)
@@ -236,7 +172,6 @@ def main():
 	dp.add_handler(CommandHandler("start", start))
 	dp.add_handler(CommandHandler("help",  ajuda))
 	dp.add_handler(CommandHandler("info", info))
-	dp.add_handler(CommandHandler("get", get, pass_args=True))
 	dp.add_handler(CommandHandler("steam",send_reddit))
 	
 	updater.start_polling()
@@ -244,4 +179,3 @@ def main():
 
 if __name__== "__main__":
 	main()
-"""/TODO add new feature google reverse image """
