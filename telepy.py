@@ -19,14 +19,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 from time import sleep
-import json
 import re 
 import logging
 import praw
 import socket,os,sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, DelayQueue
 from telegram.ext.dispatcher import run_async
-from google_images_download import google_images_download
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 					level=logging.DEBUG)
