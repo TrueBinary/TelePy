@@ -147,13 +147,13 @@ def send_reddit(bot,update):
 
 	while True:
 		datadel()
-		for submission in subreddit.top("day"):
+		for submission in subreddit.top("hour"):
 			if submission.title not in fgslist[:]:
 				fgslist.append([submission.title,submission.url])
 				fgsid.append(submission.title)
 			elif submission.id in fgsid[:]:
 				pass
-		for submission in subreddit1.top("day"):
+		for submission in subreddit1.top("hour"):
 			if submission.title not in fgflist[:]:
 				fgflist.append([submission.title,submission.url])
 				fgfid.append(submission.title)
